@@ -1,5 +1,7 @@
 package com.ouattararomuald.syndication.rss
 
+import com.ouattararomuald.syndication.SkipDays
+import com.ouattararomuald.syndication.SkipHours
 import com.ouattararomuald.syndication.atom.AtomLink
 import org.simpleframework.xml.Element
 import org.simpleframework.xml.ElementList
@@ -7,7 +9,7 @@ import org.simpleframework.xml.Root
 import java.util.ArrayList
 
 @Root(strict = false)
-internal class Channel(
+class Channel(
   @param:Element(name = "title", required = false)
   @field:Element(name = "title", required = false)
   val title: String = "",
@@ -50,6 +52,12 @@ internal class Channel(
   @field:ElementList(name = "item", inline = true, required = false)
   var items: List<Item> = ArrayList()
 
+  @field:Element(name = "skipHours", required = false)
+  var skipHours: SkipHours = SkipHours(hour = -1)
+
+  @field:Element(name = "skipDays", required = false)
+  var skipDays: SkipDays = SkipDays(day = "")
+
   override fun equals(other: Any?): Boolean {
     if (this === other) return true
     if (javaClass != other?.javaClass) return false
@@ -69,6 +77,8 @@ internal class Channel(
     if (documentation != other.documentation) return false
     if (images != other.images) return false
     if (items != other.items) return false
+    if (skipHours != other.skipHours) return false
+    if (skipDays != other.skipDays) return false
 
     return true
   }
@@ -87,10 +97,8 @@ internal class Channel(
     result = 31 * result + documentation.hashCode()
     result = 31 * result + images.hashCode()
     result = 31 * result + items.hashCode()
+    result = 31 * result + skipHours.hashCode()
+    result = 31 * result + skipDays.hashCode()
     return result
-  }
-
-  override fun toString(): String {
-    return "Channel(title='$title', description='$description', links=$links, language='$language', copyright='$copyright', published='$published', lastUpdatedTime='$lastUpdatedTime', timeToLive=$timeToLive, categories=$categories, generator='$generator', documentation='$documentation', images=$images, items=$items)"
   }
 }
