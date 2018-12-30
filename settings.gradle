@@ -1,4 +1,5 @@
 rootProject.name = 'syndication'
 include 'syndication-feed'
+include 'syndication-kotlin-coroutines-adapter'
 include 'sample'
 

@@ -3,6 +3,13 @@ package com.ouattararomuald.syndication
 import org.simpleframework.xml.Element
 import org.simpleframework.xml.Root
 
+/**
+ * Contributor of the feed.
+ *
+ * @param name name of the contributor.
+ * @property uri home page of the contributor.
+ * @property uri email address of the contributor.
+ */
 @Root(strict = false)
 class Contributor(
   @field:Element(name = "name", required = false)

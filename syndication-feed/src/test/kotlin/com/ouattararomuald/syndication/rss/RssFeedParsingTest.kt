@@ -2,11 +2,9 @@ package com.ouattararomuald.syndication.rss
 
 import com.google.common.truth.Truth.assertThat
 import com.ouattararomuald.syndication.Data
-import com.ouattararomuald.syndication.RssReader
+import com.ouattararomuald.syndication.Syndication
 import com.ouattararomuald.syndication.atom.AtomLink
-import com.ouattararomuald.syndication.http.HttpExtensionsTest
 import com.ouattararomuald.syndication.runTests
-import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.jupiter.api.AfterEach
@@ -40,10 +38,8 @@ internal class RssFeedParsingTest {
     server.runTests {
       val baseUrl = server.url(FAKE_URL)
 
-      val syndicationFeed = runBlocking {
-        RssReader(
-            baseUrl.toString()).read(RssFeed::class.java)
-      }
+      val reader = Syndication(baseUrl.toString()).create(RssFeedReader::class.java)
+      val syndicationFeed = reader.read()
 
       assertThat(syndicationFeed).isNotNull()
     }
@@ -60,7 +56,8 @@ internal class RssFeedParsingTest {
     server.runTests {
       val baseUrl = server.url(FAKE_URL)
 
-      val channel = runBlocking { RssReader(baseUrl.toString()).read(RssFeed::class.java)!!.channel }
+      val reader = Syndication(baseUrl.toString()).create(RssFeedReader::class.java)
+      val channel = reader.read().channel
 
       assertThat(channel.title).isEqualTo("Liftoff News")
     }
@@ -77,9 +74,11 @@ internal class RssFeedParsingTest {
     server.runTests {
       val baseUrl = server.url(FAKE_URL)
 
-      val channel = runBlocking { RssReader(baseUrl.toString()).read(RssFeed::class.java)!!.channel }
+      val reader = Syndication(baseUrl.toString()).create(RssFeedReader::class.java)
+      val channel = reader.read().channel
 
-      assertThat(channel.links).isEqualTo(listOf(AtomLink().apply { value = "http://liftoff.msfc.nasa.gov/" }))
+      assertThat(channel.links).isEqualTo(
+          listOf(AtomLink().apply { value = "http://liftoff.msfc.nasa.gov/" }))
     }
   }
 
@@ -94,7 +93,8 @@ internal class RssFeedParsingTest {
     server.runTests {
       val baseUrl = server.url(FAKE_URL)
 
-      val channel = runBlocking { RssReader(baseUrl.toString()).read(RssFeed::class.java)!!.channel }
+      val reader = Syndication(baseUrl.toString()).create(RssFeedReader::class.java)
+      val channel = reader.read().channel
 
       assertThat(channel.description).isEqualTo("Liftoff to Space Exploration.")
     }
@@ -111,7 +111,8 @@ internal class RssFeedParsingTest {
     server.runTests {
       val baseUrl = server.url(FAKE_URL)
 
-      val channel = runBlocking { RssReader(baseUrl.toString()).read(RssFeed::class.java)!!.channel }
+      val reader = Syndication(baseUrl.toString()).create(RssFeedReader::class.java)
+      val channel = reader.read().channel
 
       assertThat(channel.language).isEqualTo("en-us")
     }
@@ -128,7 +129,8 @@ internal class RssFeedParsingTest {
     server.runTests {
       val baseUrl = server.url(FAKE_URL)
 
-      val channel = runBlocking { RssReader(baseUrl.toString()).read(RssFeed::class.java)!!.channel }
+      val reader = Syndication(baseUrl.toString()).create(RssFeedReader::class.java)
+      val channel = reader.read().channel
 
       assertThat(channel.published).isEqualTo("Tue, 10 Jun 2003 04:00:00 GMT")
     }
@@ -145,7 +147,8 @@ internal class RssFeedParsingTest {
     server.runTests {
       val baseUrl = server.url(FAKE_URL)
 
-      val channel = runBlocking { RssReader(baseUrl.toString()).read(RssFeed::class.java)!!.channel }
+      val reader = Syndication(baseUrl.toString()).create(RssFeedReader::class.java)
+      val channel = reader.read().channel
 
       assertThat(channel.lastUpdatedTime).isEqualTo("Tue, 10 Jun 2003 09:41:01 GMT")
     }
@@ -162,7 +165,8 @@ internal class RssFeedParsingTest {
     server.runTests {
       val baseUrl = server.url(FAKE_URL)
 
-      val channel = runBlocking { RssReader(baseUrl.toString()).read(RssFeed::class.java)!!.channel }
+      val reader = Syndication(baseUrl.toString()).create(RssFeedReader::class.java)
+      val channel = reader.read().channel
 
       assertThat(channel.generator).isEqualTo("Weblog Editor 2.0")
     }
@@ -179,7 +183,8 @@ internal class RssFeedParsingTest {
     server.runTests {
       val baseUrl = server.url(FAKE_URL)
 
-      val channel = runBlocking { RssReader(baseUrl.toString()).read(RssFeed::class.java)!!.channel }
+      val reader = Syndication(baseUrl.toString()).create(RssFeedReader::class.java)
+      val channel = reader.read().channel
 
       val items = listOf(
           Item().apply {

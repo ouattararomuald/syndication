@@ -7,10 +7,7 @@ test {
 
 dependencies {
   implementation deps.kotlin.stdlib
-
-  api deps.coroutine
-  api deps.okhttp
-  api deps.simpleXml
+  api project(':syndication-feed')
 
   testImplementation deps.junit.api
   testRuntimeOnly deps.junit.engine

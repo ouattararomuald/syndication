@@ -4,7 +4,6 @@ import com.ouattararomuald.syndication.Author
 import com.ouattararomuald.syndication.Content
 import com.ouattararomuald.syndication.Contributor
 import com.ouattararomuald.syndication.Copyright
-import com.ouattararomuald.syndication.Feed
 import com.ouattararomuald.syndication.Title
 import org.simpleframework.xml.Attribute
 import org.simpleframework.xml.Element
@@ -13,8 +12,27 @@ import org.simpleframework.xml.Namespace
 import org.simpleframework.xml.Root
 import java.util.ArrayList
 
+/**
+ * Represents an Atom 1.0 syndication feed.
+ *
+ * @property id ID of the feed.
+ * @property title title of the feed.
+ * @property lastUpdatedTime indicates the last time the entry was modified.
+ * @property language name of the language the feed is written in.
+ * @property baseUri base uri of the syndication feed.
+ * @property description description of the syndication feed.
+ * @property icon a small image which provides iconic visual identification for the feed.
+ * @property logo a larger image which provides visual identification for the feed.
+ * @property generator identifies the software used to generate the feed.
+ * @property links links of the feed.
+ * @property copyright copyright of the feed.
+ * @property authors authors of the feed.
+ * @property categories categories of the feed.
+ * @property contributors contributors of the feed.
+ * @property items entries of the feed.
+ */
 @Root(name = "feed", strict = false)
-internal class AtomFeed(
+class AtomFeed(
   @param:Element(name = "id", required = false)
   @field:Element(name = "id", required = false)
   val id: String,
@@ -26,7 +44,7 @@ internal class AtomFeed(
   @param:Element(name = "updated", required = false)
   @field:Element(name = "updated", required = false)
   val lastUpdatedTime: String
-) : Feed {
+) {
 
   @field:Attribute(name = "lang", required = false)
   @field:Namespace(prefix = "xml")

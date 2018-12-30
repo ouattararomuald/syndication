@@ -5,10 +5,9 @@ import com.ouattararomuald.syndication.Author
 import com.ouattararomuald.syndication.Content
 import com.ouattararomuald.syndication.Contributor
 import com.ouattararomuald.syndication.Data
-import com.ouattararomuald.syndication.RssReader
 import com.ouattararomuald.syndication.Summary
+import com.ouattararomuald.syndication.Syndication
 import com.ouattararomuald.syndication.runTests
-import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.jupiter.api.AfterEach
@@ -36,17 +35,14 @@ internal class AtomFeedParsingTest {
     server.enqueue(
         MockResponse()
             .setResponseCode(200)
-            .setHeader(RssReader.CONTENT_TYPE, RssReader.ATOM)
             .setBody(Data.ATOM_1_0)
     )
 
     server.runTests {
       val baseUrl = server.url(FAKE_URL)
 
-      val syndicationFeed = runBlocking {
-        RssReader(
-            baseUrl.toString()).read(AtomFeed::class.java)
-      }
+      val reader = Syndication(baseUrl.toString()).create(AtomFeedReader::class.java)
+      val syndicationFeed = reader.read()
 
       assertThat(syndicationFeed).isNotNull()
     }
@@ -57,19 +53,16 @@ internal class AtomFeedParsingTest {
     server.enqueue(
         MockResponse()
             .setResponseCode(200)
-            .setHeader(RssReader.CONTENT_TYPE, RssReader.ATOM)
             .setBody(Data.ATOM_1_0)
     )
 
     server.runTests {
       val baseUrl = server.url(FAKE_URL)
 
-      val syndicationFeed = runBlocking {
-        RssReader(
-            baseUrl.toString()).read(AtomFeed::class.java)
-      }
+      val reader = Syndication(baseUrl.toString()).create(AtomFeedReader::class.java)
+      val syndicationFeed = reader.read()
 
-      assertThat(syndicationFeed?.id).isEqualTo("FeedID")
+      assertThat(syndicationFeed.id).isEqualTo("FeedID")
     }
   }
 
@@ -78,19 +71,16 @@ internal class AtomFeedParsingTest {
     server.enqueue(
         MockResponse()
             .setResponseCode(200)
-            .setHeader(RssReader.CONTENT_TYPE, RssReader.ATOM)
             .setBody(Data.ATOM_1_0)
     )
 
     server.runTests {
       val baseUrl = server.url(FAKE_URL)
 
-      val syndicationFeed = runBlocking {
-        RssReader(
-            baseUrl.toString()).read(AtomFeed::class.java)
-      }
+      val reader = Syndication(baseUrl.toString()).create(AtomFeedReader::class.java)
+      val syndicationFeed = reader.read()
 
-      assertThat(syndicationFeed?.title?.value).isEqualTo("Feed Title")
+      assertThat(syndicationFeed.title.value).isEqualTo("Feed Title")
     }
   }
 
@@ -99,19 +89,16 @@ internal class AtomFeedParsingTest {
     server.enqueue(
         MockResponse()
             .setResponseCode(200)
-            .setHeader(RssReader.CONTENT_TYPE, RssReader.ATOM)
             .setBody(Data.ATOM_1_0)
     )
 
     server.runTests {
       val baseUrl = server.url(FAKE_URL)
 
-      val syndicationFeed = runBlocking {
-        RssReader(
-            baseUrl.toString()).read(AtomFeed::class.java)
-      }
+      val reader = Syndication(baseUrl.toString()).create(AtomFeedReader::class.java)
+      val syndicationFeed = reader.read()
 
-      assertThat(syndicationFeed?.title?.type).isEqualTo("text")
+      assertThat(syndicationFeed.title.type).isEqualTo("text")
     }
   }
 
@@ -120,19 +107,16 @@ internal class AtomFeedParsingTest {
     server.enqueue(
         MockResponse()
             .setResponseCode(200)
-            .setHeader(RssReader.CONTENT_TYPE, RssReader.ATOM)
             .setBody(Data.ATOM_1_0)
     )
 
     server.runTests {
       val baseUrl = server.url(FAKE_URL)
 
-      val syndicationFeed = runBlocking {
-        RssReader(
-            baseUrl.toString()).read(AtomFeed::class.java)
-      }
+      val reader = Syndication(baseUrl.toString()).create(AtomFeedReader::class.java)
+      val syndicationFeed = reader.read()
 
-      assertThat(syndicationFeed?.copyright?.value).isEqualTo("Copyright 2007")
+      assertThat(syndicationFeed.copyright.value).isEqualTo("Copyright 2007")
     }
   }
 
@@ -141,19 +125,16 @@ internal class AtomFeedParsingTest {
     server.enqueue(
         MockResponse()
             .setResponseCode(200)
-            .setHeader(RssReader.CONTENT_TYPE, RssReader.ATOM)
             .setBody(Data.ATOM_1_0)
     )
 
     server.runTests {
       val baseUrl = server.url(FAKE_URL)
 
-      val syndicationFeed = runBlocking {
-        RssReader(
-            baseUrl.toString()).read(AtomFeed::class.java)
-      }
+      val reader = Syndication(baseUrl.toString()).create(AtomFeedReader::class.java)
+      val syndicationFeed = reader.read()
 
-      assertThat(syndicationFeed?.copyright?.type).isEqualTo("text")
+      assertThat(syndicationFeed.copyright.type).isEqualTo("text")
     }
   }
 
@@ -162,19 +143,16 @@ internal class AtomFeedParsingTest {
     server.enqueue(
         MockResponse()
             .setResponseCode(200)
-            .setHeader(RssReader.CONTENT_TYPE, RssReader.ATOM)
             .setBody(Data.ATOM_1_0)
     )
 
     server.runTests {
       val baseUrl = server.url(FAKE_URL)
 
-      val syndicationFeed = runBlocking {
-        RssReader(
-            baseUrl.toString()).read(AtomFeed::class.java)
-      }
+      val reader = Syndication(baseUrl.toString()).create(AtomFeedReader::class.java)
+      val syndicationFeed = reader.read()
 
-      assertThat(syndicationFeed?.description?.value).isEqualTo("This is a sample feed")
+      assertThat(syndicationFeed.description.value).isEqualTo("This is a sample feed")
     }
   }
 
@@ -183,19 +161,16 @@ internal class AtomFeedParsingTest {
     server.enqueue(
         MockResponse()
             .setResponseCode(200)
-            .setHeader(RssReader.CONTENT_TYPE, RssReader.ATOM)
             .setBody(Data.ATOM_1_0)
     )
 
     server.runTests {
       val baseUrl = server.url(FAKE_URL)
 
-      val syndicationFeed = runBlocking {
-        RssReader(
-            baseUrl.toString()).read(AtomFeed::class.java)
-      }
+      val reader = Syndication(baseUrl.toString()).create(AtomFeedReader::class.java)
+      val syndicationFeed = reader.read()
 
-      assertThat(syndicationFeed?.description?.type).isEqualTo("text")
+      assertThat(syndicationFeed.description.type).isEqualTo("text")
     }
   }
 
@@ -204,19 +179,16 @@ internal class AtomFeedParsingTest {
     server.enqueue(
         MockResponse()
             .setResponseCode(200)
-            .setHeader(RssReader.CONTENT_TYPE, RssReader.ATOM)
             .setBody(Data.ATOM_1_0)
     )
 
     server.runTests {
       val baseUrl = server.url(FAKE_URL)
 
-      val syndicationFeed = runBlocking {
-        RssReader(
-            baseUrl.toString()).read(AtomFeed::class.java)
-      }
+      val reader = Syndication(baseUrl.toString()).create(AtomFeedReader::class.java)
+      val syndicationFeed = reader.read()
 
-      assertThat(syndicationFeed?.lastUpdatedTime).isEqualTo("2007-04-13T17:29:38Z")
+      assertThat(syndicationFeed.lastUpdatedTime).isEqualTo("2007-04-13T17:29:38Z")
     }
   }
 
@@ -225,19 +197,16 @@ internal class AtomFeedParsingTest {
     server.enqueue(
         MockResponse()
             .setResponseCode(200)
-            .setHeader(RssReader.CONTENT_TYPE, RssReader.ATOM)
             .setBody(Data.ATOM_1_0)
     )
 
     server.runTests {
       val baseUrl = server.url(FAKE_URL)
 
-      val syndicationFeed = runBlocking {
-        RssReader(
-            baseUrl.toString()).read(AtomFeed::class.java)
-      }
+      val reader = Syndication(baseUrl.toString()).create(AtomFeedReader::class.java)
+      val syndicationFeed = reader.read()
 
-      assertThat(syndicationFeed?.logo).isEqualTo("http://contoso/image.jpg")
+      assertThat(syndicationFeed.logo).isEqualTo("http://contoso/image.jpg")
     }
   }
 
@@ -246,19 +215,16 @@ internal class AtomFeedParsingTest {
     server.enqueue(
         MockResponse()
             .setResponseCode(200)
-            .setHeader(RssReader.CONTENT_TYPE, RssReader.ATOM)
             .setBody(Data.ATOM_1_0)
     )
 
     server.runTests {
       val baseUrl = server.url(FAKE_URL)
 
-      val syndicationFeed = runBlocking {
-        RssReader(
-            baseUrl.toString()).read(AtomFeed::class.java)
-      }
+      val reader = Syndication(baseUrl.toString()).create(AtomFeedReader::class.java)
+      val syndicationFeed = reader.read()
 
-      assertThat(syndicationFeed?.generator).isEqualTo("Sample Code")
+      assertThat(syndicationFeed.generator).isEqualTo("Sample Code")
     }
   }
 
@@ -267,16 +233,16 @@ internal class AtomFeedParsingTest {
     server.enqueue(
         MockResponse()
             .setResponseCode(200)
-            .setHeader(RssReader.CONTENT_TYPE, RssReader.ATOM)
             .setBody(Data.ATOM_1_0)
     )
 
     server.runTests {
       val baseUrl = server.url(FAKE_URL)
 
-      val syndicationFeed = runBlocking { RssReader(baseUrl.toString()).read(AtomFeed::class.java) }
+      val reader = Syndication(baseUrl.toString()).create(AtomFeedReader::class.java)
+      val syndicationFeed = reader.read()
 
-      assertThat(syndicationFeed?.language).isEqualTo("en-us")
+      assertThat(syndicationFeed.language).isEqualTo("en-us")
     }
   }
 
@@ -285,16 +251,16 @@ internal class AtomFeedParsingTest {
     server.enqueue(
         MockResponse()
             .setResponseCode(200)
-            .setHeader(RssReader.CONTENT_TYPE, RssReader.ATOM)
             .setBody(Data.ATOM_1_0)
     )
 
     server.runTests {
       val baseUrl = server.url(FAKE_URL)
 
-      val syndicationFeed = runBlocking { RssReader(baseUrl.toString()).read(AtomFeed::class.java) }
+      val reader = Syndication(baseUrl.toString()).create(AtomFeedReader::class.java)
+      val syndicationFeed = reader.read()
 
-      assertThat(syndicationFeed?.baseUri).isEqualTo("http://example.org/today/")
+      assertThat(syndicationFeed.baseUri).isEqualTo("http://example.org/today/")
     }
   }
 
@@ -303,19 +269,16 @@ internal class AtomFeedParsingTest {
     server.enqueue(
         MockResponse()
             .setResponseCode(200)
-            .setHeader(RssReader.CONTENT_TYPE, RssReader.ATOM)
             .setBody(Data.ATOM_1_0)
     )
 
     server.runTests {
       val baseUrl = server.url(FAKE_URL)
 
-      val syndicationFeed = runBlocking {
-        RssReader(
-            baseUrl.toString()).read(AtomFeed::class.java)
-      }
+      val reader = Syndication(baseUrl.toString()).create(AtomFeedReader::class.java)
+      val syndicationFeed = reader.read()
 
-      assertThat(syndicationFeed?.links).isEqualTo(listOf(
+      assertThat(syndicationFeed.links).isEqualTo(listOf(
           AtomLink("http://contoso/link").apply {
             rel = "alternate"
             type = "text/html"
@@ -333,26 +296,21 @@ internal class AtomFeedParsingTest {
     server.enqueue(
         MockResponse()
             .setResponseCode(200)
-            .setHeader(RssReader.CONTENT_TYPE, RssReader.ATOM)
             .setBody(Data.ATOM_1_0)
     )
 
     server.runTests {
       val baseUrl = server.url(FAKE_URL)
 
-      val syndicationFeed = runBlocking {
-        RssReader(
-            baseUrl.toString()).read(AtomFeed::class.java)
-      }
+      val reader = Syndication(baseUrl.toString()).create(AtomFeedReader::class.java)
+      val syndicationFeed = reader.read()
 
-      val category = AtomCategory(
-          term = "FeedCategory"
-      )
+      val category = AtomCategory(term = "FeedCategory")
       category.scheme = "CategoryScheme"
       category.label = "CategoryLabel"
       val categories = listOf(category)
 
-      assertThat(syndicationFeed?.categories).isEqualTo(categories)
+      assertThat(syndicationFeed.categories).isEqualTo(categories)
     }
   }
 
@@ -361,24 +319,21 @@ internal class AtomFeedParsingTest {
     server.enqueue(
         MockResponse()
             .setResponseCode(200)
-            .setHeader(RssReader.CONTENT_TYPE, RssReader.ATOM)
             .setBody(Data.ATOM_1_0)
     )
 
     server.runTests {
       val baseUrl = server.url(FAKE_URL)
 
-      val syndicationFeed = runBlocking {
-        RssReader(
-            baseUrl.toString()).read(AtomFeed::class.java)
-      }
+      val reader = Syndication(baseUrl.toString()).create(AtomFeedReader::class.java)
+      val syndicationFeed = reader.read()
 
       val authors = listOf(Author("Jesper Aaberg").apply {
         uri = "http://contoso/Aaberg"
         email = "Jesper.Asberg@contoso.com"
       })
 
-      assertThat(syndicationFeed?.authors).isEqualTo(authors)
+      assertThat(syndicationFeed.authors).isEqualTo(authors)
     }
   }
 
@@ -387,24 +342,19 @@ internal class AtomFeedParsingTest {
     server.enqueue(
         MockResponse()
             .setResponseCode(200)
-            .setHeader(RssReader.CONTENT_TYPE, RssReader.ATOM)
             .setBody(Data.ATOM_1_0)
     )
 
     server.runTests {
       val baseUrl = server.url(FAKE_URL)
 
-      val syndicationFeed = runBlocking {
-        RssReader(
-            baseUrl.toString()).read(AtomFeed::class.java)
-      }
+      val reader = Syndication(baseUrl.toString()).create(AtomFeedReader::class.java)
+      val syndicationFeed = reader.read()
 
       val contributors =
-          listOf(
-              Contributor("Lene Aalling", "http://contoso/Aalling",
-                  "Lene.Aaling@contoso.com"))
+          listOf(Contributor("Lene Aalling", "http://contoso/Aalling", "Lene.Aaling@contoso.com"))
 
-      assertThat(syndicationFeed?.contributors).isEqualTo(contributors)
+      assertThat(syndicationFeed.contributors).isEqualTo(contributors)
     }
   }
 
@@ -413,17 +363,14 @@ internal class AtomFeedParsingTest {
     server.enqueue(
         MockResponse()
             .setResponseCode(200)
-            .setHeader(RssReader.CONTENT_TYPE, RssReader.ATOM)
             .setBody(Data.ATOM_1_0)
     )
 
     server.runTests {
       val baseUrl = server.url(FAKE_URL)
 
-      val syndicationFeed = runBlocking {
-        RssReader(
-            baseUrl.toString()).read(AtomFeed::class.java)
-      }
+      val reader = Syndication(baseUrl.toString()).create(AtomFeedReader::class.java)
+      val syndicationFeed = reader.read()
 
       val items = listOf(AtomItem(
           "ItemID",
@@ -436,7 +383,7 @@ internal class AtomFeedParsingTest {
         summary = Summary().apply { value = "Some text." }
       })
 
-      assertThat(syndicationFeed?.items).isEqualTo(items)
+      assertThat(syndicationFeed.items).isEqualTo(items)
     }
   }
 }

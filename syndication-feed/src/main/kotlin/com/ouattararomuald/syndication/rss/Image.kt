@@ -2,7 +2,7 @@ package com.ouattararomuald.syndication.rss
 
 import org.simpleframework.xml.Element
 
-internal class Image(
+class Image(
   @field:Element(name = "url", required = false)
   @param:Element(name = "url", required = false)
   var url: String = "",

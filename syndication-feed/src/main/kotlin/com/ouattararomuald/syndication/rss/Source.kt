@@ -5,7 +5,7 @@ import org.simpleframework.xml.Element
 import org.simpleframework.xml.Text
 
 @Element
-internal class Source(
+class Source(
   @get:Attribute(name = "url", required = false)
   @param:Attribute(name = "url", required = false)
   val url: String = "",

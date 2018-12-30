@@ -5,7 +5,7 @@ import org.simpleframework.xml.Element
 import org.simpleframework.xml.Text
 
 @Element(name = "category")
-internal class RssCategory(
+class RssCategory(
   @get:Attribute(name = "domain", required = false)
   @param:Attribute(name = "domain", required = false)
   val domain: String = "",

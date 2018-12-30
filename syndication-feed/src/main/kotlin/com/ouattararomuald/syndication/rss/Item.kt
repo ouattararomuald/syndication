@@ -5,8 +5,20 @@ import org.simpleframework.xml.ElementList
 import org.simpleframework.xml.Root
 import java.util.ArrayList
 
+/**
+ * Represents a feed item, an RSS <item>.
+ *
+ * @property link URL of the item.
+ * @property title contains a human readable title for the item.
+ * @property description description of the item.
+ * @property published contains the time of the initial creation or first availability of the item.
+ * @property guid a string that uniquely identifies the item.
+ * @property comments URL of a page for comments relating to the item.
+ * @property source contains metadata from the source feed if the item is a copy.
+ * @property categories categories that the item belongs to.
+ */
 @Root(strict = false)
-internal class Item {
+class Item {
   @field:Element(name = "link", required = false)
   var link: String = ""
 

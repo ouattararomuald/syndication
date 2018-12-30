@@ -5,7 +5,7 @@ import org.simpleframework.xml.Element
 import org.simpleframework.xml.Text
 
 /**
- * Human-readable text, usually in small quantities
+ * Human-readable text, either contains, or links to, the complete content of the entry.
  *
  * - If `type="text"`, then this element contains plain text with no entity escaped html.
  *
@@ -31,7 +31,7 @@ import org.simpleframework.xml.Text
  * </title>
  * ```
  *
- * @property type determines how this information is encoded (default="text")
+ * @property type determines how this information is encoded.
  */
 @Element
 class Content(

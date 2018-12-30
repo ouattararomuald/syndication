@@ -12,7 +12,7 @@ import org.simpleframework.xml.Root
 import java.util.ArrayList
 
 /**
- * Represents a feed item, for example an RSS <item> or an Atom <entry>.
+ * Represents a feed item, an Atom <entry>.
  *
  * @property id identifies the feed using a universally unique and permanent URI.
  * @property title contains a human readable title for the entry.
@@ -32,7 +32,7 @@ import java.util.ArrayList
  * @property contributors contributors of the entry.
  */
 @Root(name = "entry", strict = false)
-internal class AtomItem(
+class AtomItem(
   @field:Element(name = "id", required = false)
   @param:Element(name = "id", required = false)
   val id: String,

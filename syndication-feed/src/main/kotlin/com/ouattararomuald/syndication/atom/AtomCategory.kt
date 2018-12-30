@@ -1,11 +1,10 @@
 package com.ouattararomuald.syndication.atom
 
 import org.simpleframework.xml.Attribute
-import org.simpleframework.xml.Element
 import org.simpleframework.xml.Root
 
 @Root(name = "category", strict = false)
-internal class AtomCategory(
+class AtomCategory(
   @get:Attribute(name = "term", required = false)
   @param:Attribute(name = "term", required = false)
   val term: String,

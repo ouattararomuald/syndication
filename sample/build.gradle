@@ -1,10 +1,13 @@
-apply plugin: 'kotlin'
+apply plugin: 'org.jetbrains.kotlin.jvm'
+
+test {
+  useJUnitPlatform()
+}
 
 dependencies {
-  implementation deps.kotlin.stdlib.jdk8
-  api project(':syndication-feed')
-
-  api deps.coroutine
+  implementation deps.kotlin.stdlib
+  implementation project(':syndication-feed')
+  implementation project(':syndication-kotlin-coroutines-adapter')
 
   testImplementation deps.junit.api
   testRuntimeOnly deps.junit.engine
@@ -13,9 +16,9 @@ dependencies {
 }
 
 compileTestKotlin {
-  kotlinOptions.jvmTarget = "1.8"
+  kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8
 }
 
 compileTestKotlin {
-  kotlinOptions.jvmTarget = "1.8"
+  kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8
 }

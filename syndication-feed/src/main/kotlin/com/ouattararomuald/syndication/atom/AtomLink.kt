@@ -5,7 +5,7 @@ import org.simpleframework.xml.Root
 import org.simpleframework.xml.Text
 
 @Root(name = "link", strict = false)
-internal class AtomLink(
+class AtomLink(
   @field:Attribute(name = "href", required = false)
   @param:Attribute(name = "href", required = false)
   val href: String = ""
