@@ -4,7 +4,7 @@ A [CallAdapter.Factory] for use with kotlin coroutine's `Deferred`.
 
 ## Usage
 
-Pass `CoroutineCallAdapterFactory` as parameter of `Syndication`.
+Pass `CoroutineCallAdapterFactory` as parameter to `Syndication`.
 
 ```kotlin
 val syndicationReader = Syndication(
