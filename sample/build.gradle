@@ -4,6 +4,13 @@ test {
   useJUnitPlatform()
 }
 
+sourceSets {
+  main.kotlin.srcDirs += 'src/main/kotlin'
+  main.java.srcDirs += 'src/main/java'
+  test.kotlin.srcDirs += 'src/test/kotlin'
+  test.java.srcDirs += 'src/test/java'
+}
+
 dependencies {
   implementation deps.kotlin.stdlib
   implementation project(':syndication-feed')
