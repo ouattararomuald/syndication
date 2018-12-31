@@ -1,3 +1,6 @@
+[![](https://img.shields.io/maven-central/v/com.ouattararomuald/syndication-kotlin-coroutines-adapter.svg)](https://search.maven.org/search?q=g:com.ouattararomuald%20a:syndication-kotlin-coroutines-adapter)
+[![](https://img.shields.io/nexus/s/https/oss.sonatype.org/com.ouattararomuald/syndication-kotlin-coroutines-adapter.svg)](https://oss.sonatype.org/content/repositories/snapshots/)
+
 # Kotlin Coroutines Adapter
 
 A [CallAdapter.Factory] for use with kotlin coroutine's `Deferred`.
