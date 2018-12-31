@@ -20,6 +20,7 @@ buildscript {
       'engine': "org.junit.jupiter:junit-jupiter-engine:${versions.junit}",
     ],
     'simpleXml': 'org.simpleframework:simple-xml:2.7.1',
+    'mockito': 'org.mockito:mockito-core:2.23.4',
     'truth': 'com.google.truth:truth:0.42'
   ]
 

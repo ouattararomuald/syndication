@@ -8,17 +8,12 @@ import java.lang.reflect.Type
 
 internal class DefaultCallAdapterFactory : CallAdapter.Factory() {
 
-  override fun get(returnType: Type): CallAdapter<*, *>? {
-    val rawType = getRawType(returnType)
-
-    if (RssFeed::class.java != rawType && AtomFeed::class.java != rawType) {
-      return null
-    }
-
+  override fun get(returnType: Type): CallAdapter<*, *> {
     return when (returnType) {
       RssFeed::class.java -> ResponseAdapter<RssFeed>()
       AtomFeed::class.java -> ResponseAdapter<AtomFeed>()
-      else -> throw IllegalStateException("Unsupported type") // Impossible
+      else -> throw IllegalStateException(
+          "returnType != RssFeed::class.java && returnType != AtomFeed::class.java")
     }
   }
 

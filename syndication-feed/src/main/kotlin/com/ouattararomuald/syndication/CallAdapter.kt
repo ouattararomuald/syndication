@@ -17,8 +17,12 @@ abstract class CallAdapter<SyndicationType, Response> {
   abstract fun adapt(call: Call, clazz: Class<SyndicationType>): Response
 
   protected fun parseXml(xml: String, clazz: Class<SyndicationType>): SyndicationType {
-    val serializer = Persister()
-    return serializer.read(clazz, xml)
+    try {
+      val serializer = Persister()
+      return serializer.read(clazz, xml)
+    } catch (e: Exception) {
+      throw DeserializationException("Something went wrong during deserialization", e)
+    }
   }
 
   /**
@@ -30,7 +34,7 @@ abstract class CallAdapter<SyndicationType, Response> {
      * Returns a call adapter for interfaces methods that return type [returnType],
      * or null if can not be handled by this factory.
      */
-    abstract fun get(returnType: Type): CallAdapter<*, *>?
+    abstract fun get(returnType: Type): CallAdapter<*, *>
 
     /**
      * Extract the upper bound of the generic parameter at `index` from `type`. For
