@@ -1,3 +1,7 @@
+[![](https://img.shields.io/badge/code--style-square-green.svg)](https://github.com/square/java-code-styles)
+[![](https://img.shields.io/maven-central/v/com.ouattararomuald/syndication.svg)](https://search.maven.org/search?q=g:com.ouattararomuald%20a:syndication)
+[![](https://img.shields.io/nexus/s/https/oss.sonatype.org/com.ouattararomuald/syndication.svg)](https://oss.sonatype.org/content/repositories/snapshots/)
+
 # Syndication feed
 
 A Kotlin library for reading RSS 2.0 and ATOM 1.0 syndication feeds.
