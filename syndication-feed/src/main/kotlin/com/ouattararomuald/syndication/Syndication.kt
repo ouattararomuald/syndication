@@ -64,7 +64,7 @@ class Syndication(
               val returnType = method.genericReturnType
 
               val feedType = getFirstActualTypeArgument(returnType) ?: returnType
-              validateReturnType(feedType!!)
+              validateReturnType(feedType)
 
               return read(
                   method.genericReturnType,
@@ -91,7 +91,7 @@ class Syndication(
   private fun validateReturnType(type: Type) {
     if (type != AtomFeed::class.java && type != RssFeed::class.java) {
       throw java.lang.IllegalStateException(
-          "Return type must be AtomFeed, RssFeed or generic of both types: Deferred<AtomFeed>, Deferred<RssFeed>")
+          "expected type must be AtomFeed, RssFeed or generic of both types: Foo<AtomFeed>, Foo<RssFeed>")
     }
   }
 
@@ -105,8 +105,7 @@ class Syndication(
   ): T {
     return if (feedType == AtomFeed::class.java) {
       val readerAdapter: CallAdapter<AtomFeed, T> =
-          callFactory.get(returnType) as? CallAdapter<AtomFeed, T>
-              ?: throw IllegalStateException("CallAdapter == null")
+          callFactory.get(returnType) as CallAdapter<AtomFeed, T>
 
       val request = Request.Builder().url(url).build()
       val call = httpClient.newCall(request)
@@ -114,8 +113,7 @@ class Syndication(
       readerAdapter.adapt(call, AtomFeed::class.java)
     } else { // RSS_2_0
       val callAdapter: CallAdapter<RssFeed, T> =
-          callFactory.get(returnType) as? CallAdapter<RssFeed, T>
-              ?: throw IllegalStateException("CallAdapter == null")
+          callFactory.get(returnType) as CallAdapter<RssFeed, T>
 
       val request = Request.Builder().url(url).build()
       val call = httpClient.newCall(request)

@@ -7,4 +7,8 @@ internal interface FeedReaderService {
   fun readAtom(): AtomFeed
 
   fun readRss(): RssFeed
+
+  fun readBadType(): Int
+
+  fun readBadGenericType(): List<AtomFeed>
 }

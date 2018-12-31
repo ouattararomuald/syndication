@@ -53,7 +53,7 @@ internal class RssFeedParsingTest {
   }
 
   @Test
-  fun `Rss_2_0 deserializing feed should success`() {
+  fun `deserialize rss feed`() {
     server.enqueue(
         MockResponse()
             .setResponseCode(200)
@@ -71,43 +71,43 @@ internal class RssFeedParsingTest {
   }
 
   @Test
-  fun `Rss_2_0 title`() {
+  fun `verify title`() {
     assertThat(channel.title).isEqualTo("Liftoff News")
   }
 
   @Test
-  fun `Rss_2_0 link`() {
+  fun `verify link`() {
     assertThat(channel.links).isEqualTo(
         listOf(AtomLink().apply { value = "http://liftoff.msfc.nasa.gov/" }))
   }
 
   @Test
-  fun `Rss_2_0 description`() {
+  fun `verify description`() {
     assertThat(channel.description).isEqualTo("Liftoff to Space Exploration.")
   }
 
   @Test
-  fun `Rss_2_0 language`() {
+  fun `verify language`() {
     assertThat(channel.language).isEqualTo("en-us")
   }
 
   @Test
-  fun `Rss_2_0 published`() {
+  fun `verify published`() {
     assertThat(channel.published).isEqualTo("Tue, 10 Jun 2003 04:00:00 GMT")
   }
 
   @Test
-  fun `Rss_2_0 last update`() {
+  fun `verify last update`() {
     assertThat(channel.lastUpdatedTime).isEqualTo("Tue, 10 Jun 2003 09:41:01 GMT")
   }
 
   @Test
-  fun `Rss_2_0 generator`() {
+  fun `verify generator`() {
     assertThat(channel.generator).isEqualTo("Weblog Editor 2.0")
   }
 
   @Test
-  fun `Rss_2_0 items`() {
+  fun `verify items`() {
     val items = listOf(
         Item().apply {
           title = "Star City"

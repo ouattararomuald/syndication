@@ -54,7 +54,7 @@ internal class AtomFeedParsingTest {
   }
 
   @Test
-  fun `Atom_1_0 deserializing feed should success`() {
+  fun `deserialize atom feed`() {
     server.enqueue(
         MockResponse()
             .setResponseCode(200)
@@ -72,67 +72,67 @@ internal class AtomFeedParsingTest {
   }
 
   @Test
-  fun `Atom_1_0 verify id`() {
+  fun `verify id`() {
     assertThat(syndicationFeed.id).isEqualTo("FeedID")
   }
 
   @Test
-  fun `Atom_1_0 verify title`() {
+  fun `verify title`() {
     assertThat(syndicationFeed.title.value).isEqualTo("Feed Title")
   }
 
   @Test
-  fun `Atom_1_0 verify title type`() {
+  fun `verify title type`() {
     assertThat(syndicationFeed.title.type).isEqualTo("text")
   }
 
   @Test
-  fun `Atom_1_0 verify rights`() {
+  fun `verify rights`() {
     assertThat(syndicationFeed.copyright.value).isEqualTo("Copyright 2007")
   }
 
   @Test
-  fun `Atom_1_0 verify rights type`() {
+  fun `verify rights type`() {
     assertThat(syndicationFeed.copyright.type).isEqualTo("text")
   }
 
   @Test
-  fun `Atom_1_0 verify description`() {
+  fun `verify description`() {
     assertThat(syndicationFeed.description.value).isEqualTo("This is a sample feed")
   }
 
   @Test
-  fun `Atom_1_0 verify description type`() {
+  fun `verify description type`() {
     assertThat(syndicationFeed.description.type).isEqualTo("text")
   }
 
   @Test
-  fun `Atom_1_0 verify last update time`() {
+  fun `verify last update time`() {
     assertThat(syndicationFeed.lastUpdatedTime).isEqualTo("2007-04-13T17:29:38Z")
   }
 
   @Test
-  fun `Atom_1_0 verify logo`() {
+  fun `verify logo`() {
     assertThat(syndicationFeed.logo).isEqualTo("http://contoso/image.jpg")
   }
 
   @Test
-  fun `Atom_1_0 verify generator`() {
+  fun `verify generator`() {
     assertThat(syndicationFeed.generator).isEqualTo("Sample Code")
   }
 
   @Test
-  fun `Atom_1_0 verify language`() {
+  fun `verify language`() {
     assertThat(syndicationFeed.language).isEqualTo("en-us")
   }
 
   @Test
-  fun `Atom_1_0 verify base uri`() {
+  fun `verify base uri`() {
     assertThat(syndicationFeed.baseUri).isEqualTo("http://example.org/today/")
   }
 
   @Test
-  fun `Atom_1_0 verify links`() {
+  fun `verify links`() {
     assertThat(syndicationFeed.links).isEqualTo(listOf(
         AtomLink("http://contoso/link").apply {
           rel = "alternate"
@@ -146,7 +146,7 @@ internal class AtomFeedParsingTest {
   }
 
   @Test
-  fun `Atom_1_0 verify categories`() {
+  fun `verify categories`() {
     val category = AtomCategory(term = "FeedCategory")
     category.scheme = "CategoryScheme"
     category.label = "CategoryLabel"
@@ -156,7 +156,7 @@ internal class AtomFeedParsingTest {
   }
 
   @Test
-  fun `Atom_1_0 verify authors`() {
+  fun `verify authors`() {
     val authors = listOf(Author("Jesper Aaberg").apply {
       uri = "http://contoso/Aaberg"
       email = "Jesper.Asberg@contoso.com"
@@ -166,7 +166,7 @@ internal class AtomFeedParsingTest {
   }
 
   @Test
-  fun `Atom_1_0 verify contributors`() {
+  fun `verify contributors`() {
     val contributors =
         listOf(Contributor("Lene Aalling", "http://contoso/Aalling", "Lene.Aaling@contoso.com"))
 
@@ -174,7 +174,7 @@ internal class AtomFeedParsingTest {
   }
 
   @Test
-  fun `Atom_1_0 verify items`() {
+  fun `verify items`() {
     val items = listOf(AtomItem(
         "ItemID",
         "Item Title",
