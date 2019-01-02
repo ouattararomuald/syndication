@@ -6,7 +6,7 @@ import com.ouattararomuald.syndication.Content
 import com.ouattararomuald.syndication.Contributor
 import com.ouattararomuald.syndication.Data
 import com.ouattararomuald.syndication.FeedReaderService
-import com.ouattararomuald.syndication.Summary
+import com.ouattararomuald.syndication.Link
 import com.ouattararomuald.syndication.Syndication
 import com.ouattararomuald.syndication.runTests
 import okhttp3.mockwebserver.MockResponse
@@ -73,12 +73,12 @@ internal class AtomFeedParsingTest {
 
   @Test
   fun `verify id`() {
-    assertThat(syndicationFeed.id).isEqualTo("FeedID")
+    assertThat(syndicationFeed.id).isEqualTo("tag:example.org,2003:3")
   }
 
   @Test
   fun `verify title`() {
-    assertThat(syndicationFeed.title.value).isEqualTo("Feed Title")
+    assertThat(syndicationFeed.title.value).isEqualTo("dive into mark")
   }
 
   @Test
@@ -87,38 +87,58 @@ internal class AtomFeedParsingTest {
   }
 
   @Test
-  fun `verify rights`() {
-    assertThat(syndicationFeed.copyright.value).isEqualTo("Copyright 2007")
+  fun `verify subtitle`() {
+    assertThat(syndicationFeed.subtitle?.value).isEqualTo(
+        "A <em>lot</em> of effort went into making this effortless"
+    )
   }
 
   @Test
-  fun `verify rights type`() {
-    assertThat(syndicationFeed.copyright.type).isEqualTo("text")
-  }
-
-  @Test
-  fun `verify description`() {
-    assertThat(syndicationFeed.description.value).isEqualTo("This is a sample feed")
-  }
-
-  @Test
-  fun `verify description type`() {
-    assertThat(syndicationFeed.description.type).isEqualTo("text")
+  fun `verify subtitle type`() {
+    assertThat(syndicationFeed.subtitle?.type).isEqualTo("html")
   }
 
   @Test
   fun `verify last update time`() {
-    assertThat(syndicationFeed.lastUpdatedTime).isEqualTo("2007-04-13T17:29:38Z")
+    assertThat(syndicationFeed.lastUpdatedTime).isEqualTo("2005-07-31T12:29:29Z")
+  }
+
+  @Test
+  fun `verify links`() {
+    assertThat(syndicationFeed.links).isEqualTo(listOf(
+        Link("http://example.org/", rel = "alternate", type = "text/html", hreflang = "en"),
+        Link("http://example.org/feed.atom", rel = "self", type = "application/atom+xml")
+    ))
+  }
+
+  @Test
+  fun `verify rights`() {
+    assertThat(syndicationFeed.copyright?.value).isEqualTo("Copyright (c) 2003, Mark Pilgrim")
+  }
+
+  @Test
+  fun `verify rights type`() {
+    assertThat(syndicationFeed.copyright?.type).isNull()
   }
 
   @Test
   fun `verify logo`() {
-    assertThat(syndicationFeed.logo).isEqualTo("http://contoso/image.jpg")
+    assertThat(syndicationFeed.logo).isEqualTo("http://example.com/image.jpg")
   }
 
   @Test
   fun `verify generator`() {
-    assertThat(syndicationFeed.generator).isEqualTo("Sample Code")
+    assertThat(syndicationFeed.generator?.value).isEqualTo("Example Toolkit")
+  }
+
+  @Test
+  fun `verify generator type`() {
+    assertThat(syndicationFeed.generator?.uri).isEqualTo("http://www.example.com/")
+  }
+
+  @Test
+  fun `verify generator version`() {
+    assertThat(syndicationFeed.generator?.version).isEqualTo("1.0")
   }
 
   @Test
@@ -132,59 +152,54 @@ internal class AtomFeedParsingTest {
   }
 
   @Test
-  fun `verify links`() {
-    assertThat(syndicationFeed.links).isEqualTo(listOf(
-        AtomLink("http://contoso/link").apply {
-          rel = "alternate"
-          type = "text/html"
-          title = "AtomLink Title"
-          length = 1000
-        }, AtomLink("http://example.org/feed.atom").apply {
-      rel = "self"
-      type = "application/atom+xml"
-    }))
-  }
-
-  @Test
   fun `verify categories`() {
-    val category = AtomCategory(term = "FeedCategory")
-    category.scheme = "CategoryScheme"
-    category.label = "CategoryLabel"
-    val categories = listOf(category)
-
-    assertThat(syndicationFeed.categories).isEqualTo(categories)
+    assertThat(syndicationFeed.categories).isEqualTo(listOf(AtomCategory(
+        term = "FeedCategory",
+        scheme = "CategoryScheme",
+        label = "CategoryLabel"
+    )))
   }
 
   @Test
   fun `verify authors`() {
-    val authors = listOf(Author("Jesper Aaberg").apply {
-      uri = "http://contoso/Aaberg"
-      email = "Jesper.Asberg@contoso.com"
-    })
+    val authors = listOf(
+        Author(name = "Mark Pilgrim", uri = "http://example.org/", email = "f8dy@example.com")
+    )
 
     assertThat(syndicationFeed.authors).isEqualTo(authors)
   }
 
   @Test
   fun `verify contributors`() {
-    val contributors =
-        listOf(Contributor("Lene Aalling", "http://contoso/Aalling", "Lene.Aaling@contoso.com"))
+    val contributors = listOf(Contributor(name = "Sam Ruby"))
 
     assertThat(syndicationFeed.contributors).isEqualTo(contributors)
   }
 
   @Test
   fun `verify items`() {
-    val items = listOf(AtomItem(
-        "ItemID",
-        "Item Title",
-        "2007-04-13T17:29:38Z"
-    ).apply {
-      links = listOf(
-          AtomLink("http://contoso/items").apply { rel = "alternate" })
-      content = Content("text").apply { value = "Some text content" }
-      summary = Summary().apply { value = "Some text." }
-    })
+    val items = listOf(Entry(
+        id = "tag:example.org,2003:3.2397",
+        title = "Atom draft-07 snapshot",
+        lastUpdatedTime = "2005-07-31T12:29:29Z",
+        published = "2003-12-13T08:29:29-04:00",
+        links = listOf(
+            Link("http://example.org/2005/04/02/atom", rel = "alternate", type = "text/html"),
+            Link("http://example.org/audio/ph34r_my_podcast.mp3", rel = "enclosure",
+                type = "audio/mpeg", length = 1337)
+        ),
+        authors = listOf(
+            Author(name = "Mark Pilgrim", uri = "http://example.org/", email = "f8dy@example.com")
+        ),
+        contributors = listOf(Contributor(name = "Sam Ruby"), Contributor(name = "Joe Gregorio")),
+        content = Content(type = "xhtml",
+            value = """<div xmlns="http://www.w3.org/1999/xhtml"><p><i>[Update: The Atom draft is finished.]</i></p></div>"""),
+        categories = listOf(AtomCategory(
+            term = "FeedCategory",
+            scheme = "CategoryScheme",
+            label = "CategoryLabel"
+        ))
+    ))
 
     assertThat(syndicationFeed.items).isEqualTo(items)
   }

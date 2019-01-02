@@ -1,8 +1,6 @@
 package com.ouattararomuald.syndication.rss
 
-import com.ouattararomuald.syndication.SkipDays
-import com.ouattararomuald.syndication.SkipHours
-import com.ouattararomuald.syndication.atom.AtomLink
+import com.ouattararomuald.syndication.Link
 import org.simpleframework.xml.Element
 import org.simpleframework.xml.ElementList
 import org.simpleframework.xml.Root
@@ -10,95 +8,63 @@ import java.util.ArrayList
 
 @Root(strict = false)
 class Channel(
-  @param:Element(name = "title", required = false)
-  @field:Element(name = "title", required = false)
-  val title: String = "",
+  @field:Element(name = "title")
+  @param:Element(name = "title")
+  val title: String,
 
-  @param:Element(name = "description", required = false)
-  @field:Element(name = "description", required = false)
-  val description: String = ""
-) {
+  @field:ElementList(name = "link", inline = true)
+  @param:ElementList(name = "link", inline = true)
+  val links: List<Link>,
 
-  @field:ElementList(inline = true, required = false)
-  var links: List<AtomLink> = ArrayList()
+  @field:Element(name = "description")
+  @param:Element(name = "description")
+  val description: String,
 
   @field:Element(name = "language", required = false)
-  var language: String = ""
+  @param:Element(name = "language", required = false)
+  val language: String? = null,
 
   @field:Element(name = "copyright", required = false)
-  var copyright: String = ""
+  @param:Element(name = "copyright", required = false)
+  val copyright: String? = null,
 
   @field:Element(name = "pubDate", required = false)
-  var published: String = ""
+  @param:Element(name = "pubDate", required = false)
+  val published: String? = null,
 
   @field:Element(name = "lastBuildDate", required = false)
-  var lastUpdatedTime: String = ""
+  @param:Element(name = "lastBuildDate", required = false)
+  val lastUpdatedTime: String? = null,
 
   @field:Element(name = "ttl", required = false)
-  var timeToLive: Int = -1
-
-  @field:ElementList(name = "category", inline = true, required = false)
-  var categories: List<RssCategory> = ArrayList()
+  @param:Element(name = "ttl", required = false)
+  val timeToLive: Int? = null,
 
   @field:Element(name = "generator", required = false)
-  var generator = ""
+  @param:Element(name = "generator", required = false)
+  val generator: String? = null,
 
   @field:Element(name = "docs", required = false)
-  var documentation: String = ""
-
-  @field:ElementList(name = "image", inline = true, required = false)
-  var images: List<Image> = ArrayList()
-
-  @field:ElementList(name = "item", inline = true, required = false)
-  var items: List<Item> = ArrayList()
+  @param:Element(name = "docs", required = false)
+  val documentation: String? = null,
 
   @field:Element(name = "skipHours", required = false)
-  var skipHours: SkipHours = SkipHours(hour = -1)
+  @param:Element(name = "skipHours", required = false)
+  val skipHours: SkipHours? = null,
 
   @field:Element(name = "skipDays", required = false)
-  var skipDays: SkipDays = SkipDays(day = "")
+  @param:Element(name = "skipDays", required = false)
+  val skipDays: SkipDays? = null,
 
-  override fun equals(other: Any?): Boolean {
-    if (this === other) return true
-    if (javaClass != other?.javaClass) return false
+  @field:ElementList(name = "category", inline = true, required = false)
+  @param:ElementList(name = "category", inline = true, required = false)
+  val categories: List<RssCategory>? = ArrayList(),
 
-    other as Channel
+  @field:ElementList(name = "image", inline = true, required = false)
+  @param:ElementList(name = "image", inline = true, required = false)
+  val images: List<Image>? = ArrayList(),
 
-    if (title != other.title) return false
-    if (description != other.description) return false
-    if (links != other.links) return false
-    if (language != other.language) return false
-    if (copyright != other.copyright) return false
-    if (published != other.published) return false
-    if (lastUpdatedTime != other.lastUpdatedTime) return false
-    if (timeToLive != other.timeToLive) return false
-    if (categories != other.categories) return false
-    if (generator != other.generator) return false
-    if (documentation != other.documentation) return false
-    if (images != other.images) return false
-    if (items != other.items) return false
-    if (skipHours != other.skipHours) return false
-    if (skipDays != other.skipDays) return false
-
-    return true
-  }
-
-  override fun hashCode(): Int {
-    var result = title.hashCode()
-    result = 31 * result + description.hashCode()
-    result = 31 * result + links.hashCode()
-    result = 31 * result + language.hashCode()
-    result = 31 * result + copyright.hashCode()
-    result = 31 * result + published.hashCode()
-    result = 31 * result + lastUpdatedTime.hashCode()
-    result = 31 * result + timeToLive
-    result = 31 * result + categories.hashCode()
-    result = 31 * result + generator.hashCode()
-    result = 31 * result + documentation.hashCode()
-    result = 31 * result + images.hashCode()
-    result = 31 * result + items.hashCode()
-    result = 31 * result + skipHours.hashCode()
-    result = 31 * result + skipDays.hashCode()
-    return result
-  }
-}
+  @field:ElementList(name = "item", inline = true, required = false)
+  @param:ElementList(name = "item", inline = true, required = false)
+  val items: List<Item>? = ArrayList()
+)

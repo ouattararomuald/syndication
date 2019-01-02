@@ -34,34 +34,12 @@ import org.simpleframework.xml.Text
  * @property type determines how this information is encoded (default="text")
  */
 @Element
-class Summary(
+data class Summary(
   @get:Attribute(name = "type", required = false)
   @param:Attribute(name = "type", required = false)
-  val type: String = ""
-) {
+  val type: String? = null,
 
   @field:Text(required = false)
-  var value: String = ""
-
-  override fun equals(other: Any?): Boolean {
-    if (this === other) return true
-    if (javaClass != other?.javaClass) return false
-
-    other as Summary
-
-    if (type != other.type) return false
-    if (value != other.value) return false
-
-    return true
-  }
-
-  override fun hashCode(): Int {
-    var result = type.hashCode()
-    result = 31 * result + value.hashCode()
-    return result
-  }
-
-  override fun toString(): String {
-    return "Summary(type='$type', value='$value')"
-  }
-}
+  @param:Text(required = false)
+  val value: String? = null
+)

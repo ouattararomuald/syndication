@@ -3,8 +3,8 @@ package com.ouattararomuald.syndication.rss
 import com.google.common.truth.Truth.assertThat
 import com.ouattararomuald.syndication.Data
 import com.ouattararomuald.syndication.FeedReaderService
+import com.ouattararomuald.syndication.Link
 import com.ouattararomuald.syndication.Syndication
-import com.ouattararomuald.syndication.atom.AtomLink
 import com.ouattararomuald.syndication.runTests
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
@@ -76,9 +76,30 @@ internal class RssFeedParsingTest {
   }
 
   @Test
-  fun `verify link`() {
-    assertThat(channel.links).isEqualTo(
-        listOf(AtomLink().apply { value = "http://liftoff.msfc.nasa.gov/" }))
+  fun `verify links`() {
+    assertThat(channel.links).isEqualTo(listOf(
+        Link(value = "http://liftoff.msfc.nasa.gov/"),
+        Link(value = "http://liftoff.msfc.nasa.gov/2/")
+    ))
+  }
+
+  @Test
+  fun `verify categories`() {
+    assertThat(channel.categories).isEqualTo(listOf(
+        RssCategory(value = "Grateful Dead"),
+        RssCategory(domain = "http://www.fool.com/cusips", value = "MSFT")
+    ))
+  }
+
+  @Test
+  fun `verify images`() {
+    assertThat(channel.images).isEqualTo(listOf(Image(
+        url = "http://www.example.com/img.gif",
+        title = "title",
+        link = "https://www.example.fr",
+        width = 119,
+        height = 28
+    )))
   }
 
   @Test
@@ -107,22 +128,54 @@ internal class RssFeedParsingTest {
   }
 
   @Test
+  fun `verify documentation`() {
+    assertThat(channel.documentation).isEqualTo("http://blogs.law.harvard.edu/tech/rss")
+  }
+
+  @Test
+  fun `verify time to live`() {
+    assertThat(channel.timeToLive).isEqualTo(60)
+  }
+
+  @Test
+  fun `verify skip days`() {
+    assertThat(channel.skipDays).isEqualTo(
+        SkipDays(listOf(Day("Monday"), Day("Tuesday")))
+    )
+  }
+
+  @Test
+  fun `verify skip hours`() {
+    assertThat(channel.skipHours).isEqualTo(
+        SkipHours(listOf(Hour(0), Hour(1)))
+    )
+  }
+
+  @Test
   fun `verify items`() {
     val items = listOf(
-        Item().apply {
-          title = "Star City"
-          link = "http://liftoff.msfc.nasa.gov/news/2003/news-starcity.asp"
-          description =
-              "How do Americans get ready to work with Russians aboard the International Space Station? They take a crash course in culture, language and protocol at Russia's <a href=\"http://howe.iki.rssi.ru/GCTC/gctc_e.htm\">Star City</a>."
-          guid = "http://liftoff.msfc.nasa.gov/2003/06/03.html#item573"
-          published = "Tue, 03 Jun 2003 09:39:21 GMT"
-        },
-        Item().apply {
-          description =
-              "Sky watchers in Europe, Asia, and parts of Alaska and Canada will experience a <a href=\"http://science.nasa.gov/headlines/y2003/30may_solareclipse.htm\">partial eclipse of the Sun</a> on Saturday, May 31st."
-          published = "Fri, 30 May 2003 11:06:42 GMT"
-          guid = "http://liftoff.msfc.nasa.gov/2003/05/30.html#item572"
-        }
+        Item(
+            link = "http://liftoff.msfc.nasa.gov/news/2003/news-starcity.asp",
+            title = "Star City",
+            description =
+            "How do Americans get ready to work with Russians aboard the International Space Station? They take a crash course in culture, language and protocol at Russia's <a href=\"http://howe.iki.rssi.ru/GCTC/gctc_e.htm\">Star City</a>.",
+            guid = "http://liftoff.msfc.nasa.gov/2003/06/03.html#item573",
+            published = "Tue, 03 Jun 2003 09:39:21 GMT",
+            comments = null,
+            source = null,
+            categories = null
+        ),
+        Item(
+            link = null,
+            title = null,
+            description =
+            "Sky watchers in Europe, Asia, and parts of Alaska and Canada will experience a <a href=\"http://science.nasa.gov/headlines/y2003/30may_solareclipse.htm\">partial eclipse of the Sun</a> on Saturday, May 31st.",
+            published = "Fri, 30 May 2003 11:06:42 GMT",
+            guid = "http://liftoff.msfc.nasa.gov/2003/05/30.html#item572",
+            comments = null,
+            source = null,
+            categories = null
+        )
     )
 
     assertThat(channel.items).isEqualTo(items)
