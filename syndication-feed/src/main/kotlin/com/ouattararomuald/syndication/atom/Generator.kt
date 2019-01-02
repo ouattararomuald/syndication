@@ -4,6 +4,13 @@ import org.simpleframework.xml.Attribute
 import org.simpleframework.xml.Root
 import org.simpleframework.xml.Text
 
+/**
+ * Represent the agent used to generate a feed, for debugging and other purposes.
+ *
+ * @property value name of the tool that generated the feed.
+ * @property uri an IRI associated with the generator.
+ * @property version
+ */
 @Root(strict = false)
 data class Generator(
   @field:Text

@@ -12,5 +12,5 @@ data class RssSource(
 
   @field:Text(required = false)
   @param:Text(required = false)
-  val value: String?
+  val value: String? = null
 )
