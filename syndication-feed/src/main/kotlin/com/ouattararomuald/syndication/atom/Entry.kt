@@ -15,16 +15,11 @@ import java.util.ArrayList
  *
  * @property id identifies the feed using a universally unique and permanent URI.
  * @property title contains a human readable title for the entry.
- * @property lastUpdatedTime indicates the last time the feed was modified in a significant way.
+ * @property lastUpdatedTime the last time the feed was modified in a significant way.
+ * @property published the time of the initial creation or first availability of the entry.
  * @property content contains or link to the complete content of the entry.
- * @property links identifies a related Web page.
- * @property summary Conveys a short summary, abstract, or excerpt of the entry.
- * Summary should be provided if there either is no content provided for the entry,
- * or that content is not inline (i.e., contains a src attribute), or if the content
- * is encoded in base64. More info.
- * @property copyright conveys information about copyright,
- * e.g. copyrights, held in and over the feed.
- * @property published contains the time of the initial creation or first availability of the entry.
+ * @property links list of related Web page.
+ * @property summary conveys a short summary, abstract, or excerpt of the entry.
  * @property source contains metadata from the source feed if this entry is a copy.
  * @property authors authors of the entry.
  * @property categories categories that the entry belongs to.

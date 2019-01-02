@@ -18,7 +18,7 @@ import java.util.ArrayList
  *
  * @property id ID of the feed.
  * @property title title of the feed.
- * @property lastUpdatedTime indicates the last time the entry was modified.
+ * @property lastUpdatedTime the last time the entry was modified.
  * @property language name of the language the feed is written in.
  * @property baseUri base uri of the syndication feed.
  * @property subtitle subtitle of the syndication feed.
@@ -45,10 +45,6 @@ data class AtomFeed(
   @param:Element(name = "updated")
   @field:Element(name = "updated")
   val lastUpdatedTime: String,
-
-  @field:Element(name = "published", required = false)
-  @param:Element(name = "published", required = false)
-  val published: String? = null,
 
   @param:Attribute(name = "lang", required = false)
   @param:Namespace(prefix = "xml")

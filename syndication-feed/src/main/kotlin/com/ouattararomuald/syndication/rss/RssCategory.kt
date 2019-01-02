@@ -5,8 +5,10 @@ import org.simpleframework.xml.Root
 import org.simpleframework.xml.Text
 
 /**
+ *  Represents a category associated with an [Item] or feed ([RssFeed]).
  *
- * @property domain a string that identifies a categorization taxonomy.
+ * @property domain identifies a categorization taxonomy.
+ * @property value a human-readable label for display in end-user applications.
  */
 @Root(name = "category", strict = false)
 data class RssCategory(

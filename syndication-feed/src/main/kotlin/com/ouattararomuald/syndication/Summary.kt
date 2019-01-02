@@ -5,7 +5,7 @@ import org.simpleframework.xml.Element
 import org.simpleframework.xml.Text
 
 /**
- * Human-readable text, usually in small quantities
+ * Human-readable text, usually in small quantities, that summarize the content of the feed or entry.
  *
  * - If `type="text"`, then this element contains plain text with no entity escaped html.
  *
