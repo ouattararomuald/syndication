@@ -37,7 +37,7 @@ If you would like to do things asynchronously then take a look to existing adapt
 
 ## Syndication specifications
 
-- [Atom 1.0](https://www.ietf.org/rfc/rfc4287)
+- [Atom 1.0](https://tools.ietf.org/html/rfc4287)
 - [RSS 2.0](http://www.rssboard.org/rss-specification)
 
 ## Download

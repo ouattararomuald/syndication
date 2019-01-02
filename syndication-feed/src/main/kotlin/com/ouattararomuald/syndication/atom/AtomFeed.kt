@@ -4,6 +4,7 @@ import com.ouattararomuald.syndication.Author
 import com.ouattararomuald.syndication.Content
 import com.ouattararomuald.syndication.Contributor
 import com.ouattararomuald.syndication.Copyright
+import com.ouattararomuald.syndication.Link
 import com.ouattararomuald.syndication.Title
 import org.simpleframework.xml.Attribute
 import org.simpleframework.xml.Element
@@ -20,7 +21,7 @@ import java.util.ArrayList
  * @property lastUpdatedTime indicates the last time the entry was modified.
  * @property language name of the language the feed is written in.
  * @property baseUri base uri of the syndication feed.
- * @property description description of the syndication feed.
+ * @property subtitle subtitle of the syndication feed.
  * @property icon a small image which provides iconic visual identification for the feed.
  * @property logo a larger image which provides visual identification for the feed.
  * @property generator identifies the software used to generate the feed.
@@ -32,103 +33,72 @@ import java.util.ArrayList
  * @property items entries of the feed.
  */
 @Root(name = "feed", strict = false)
-class AtomFeed(
-  @param:Element(name = "id", required = false)
-  @field:Element(name = "id", required = false)
+data class AtomFeed(
+  @param:Element(name = "id")
+  @field:Element(name = "id")
   val id: String,
 
-  @param:Element(name = "title", required = false)
-  @field:Element(name = "title", required = false)
+  @param:Element(name = "title")
+  @field:Element(name = "title")
   val title: Title,
 
-  @param:Element(name = "updated", required = false)
-  @field:Element(name = "updated", required = false)
-  val lastUpdatedTime: String
-) {
+  @param:Element(name = "updated")
+  @field:Element(name = "updated")
+  val lastUpdatedTime: String,
 
+  @field:Element(name = "published", required = false)
+  @param:Element(name = "published", required = false)
+  val published: String? = null,
+
+  @param:Attribute(name = "lang", required = false)
+  @param:Namespace(prefix = "xml")
   @field:Attribute(name = "lang", required = false)
   @field:Namespace(prefix = "xml")
-  var language: String = ""
+  val language: String? = null,
 
+  @param:Attribute(name = "base", required = false)
+  @param:Namespace(prefix = "xml")
   @field:Attribute(name = "base", required = false)
   @field:Namespace(prefix = "xml")
-  var baseUri: String = ""
-
-  @field:Element(name = "subtitle", required = false)
-  var description = Content()
+  val baseUri: String? = null,
 
   @field:Element(name = "icon", required = false)
-  var icon = ""
+  @param:Element(name = "icon", required = false)
+  val icon: String? = null,
 
   @field:Element(name = "logo", required = false)
-  var logo = ""
+  @param:Element(name = "logo", required = false)
+  val logo: String? = null,
 
   @field:Element(name = "generator", required = false)
-  var generator = ""
+  @param:Element(name = "generator", required = false)
+  val generator: Generator? = null,
 
-  @field:ElementList(inline = true, required = false)
-  var links: List<AtomLink> = ArrayList()
+  @field:Element(name = "subtitle", required = false)
+  @param:Element(name = "subtitle", required = false)
+  val subtitle: Content? = null,
 
   @field:Element(name = "rights", required = false)
-  var copyright = Copyright()
+  @param:Element(name = "rights", required = false)
+  val copyright: Copyright? = null,
 
   @field:ElementList(inline = true, required = false)
-  var authors: List<Author> = ArrayList()
+  @param:ElementList(inline = true, required = false)
+  val links: List<Link>? = ArrayList(),
 
   @field:ElementList(inline = true, required = false)
-  var categories: List<AtomCategory> = ArrayList()
+  @param:ElementList(inline = true, required = false)
+  val authors: List<Author>? = ArrayList(),
 
   @field:ElementList(inline = true, required = false)
-  var contributors: List<Contributor> = ArrayList()
+  @param:ElementList(inline = true, required = false)
+  val categories: List<AtomCategory>? = ArrayList(),
 
   @field:ElementList(inline = true, required = false)
-  var items: List<AtomItem> = ArrayList()
+  @param:ElementList(inline = true, required = false)
+  val contributors: List<Contributor>? = ArrayList(),
 
-  override fun equals(other: Any?): Boolean {
-    if (this === other) return true
-    if (javaClass != other?.javaClass) return false
-
-    other as AtomFeed
-
-    if (id != other.id) return false
-    if (title != other.title) return false
-    if (lastUpdatedTime != other.lastUpdatedTime) return false
-    if (language != other.language) return false
-    if (baseUri != other.baseUri) return false
-    if (description != other.description) return false
-    if (icon != other.icon) return false
-    if (logo != other.logo) return false
-    if (generator != other.generator) return false
-    if (links != other.links) return false
-    if (copyright != other.copyright) return false
-    if (authors != other.authors) return false
-    if (categories != other.categories) return false
-    if (contributors != other.contributors) return false
-    if (items != other.items) return false
-
-    return true
-  }
-
-  override fun hashCode(): Int {
-    var result = id.hashCode()
-    result = 31 * result + title.hashCode()
-    result = 31 * result + lastUpdatedTime.hashCode()
-    result = 31 * result + language.hashCode()
-    result = 31 * result + baseUri.hashCode()
-    result = 31 * result + description.hashCode()
-    result = 31 * result + icon.hashCode()
-    result = 31 * result + logo.hashCode()
-    result = 31 * result + generator.hashCode()
-    result = 31 * result + links.hashCode()
-    result = 31 * result + copyright.hashCode()
-    result = 31 * result + authors.hashCode()
-    result = 31 * result + categories.hashCode()
-    result = 31 * result + contributors.hashCode()
-    result = 31 * result + items.hashCode()
-    return result
-  }
-
-  override fun toString(): String {
-    return "AtomFeed(id='$id', title=$title, lastUpdatedTime='$lastUpdatedTime', language='$language', baseUri='$baseUri', description=$description, icon='$icon', logo='$logo', generator='$generator', link=$links, copyright=$copyright, authors=$authors, categories=$categories, contributors=$contributors, items=$items)"
-  }
-}
+  @field:ElementList(name = "entry", inline = true, required = false)
+  @param:ElementList(name = "entry", inline = true, required = false)
+  val items: List<Entry>? = ArrayList()
+)

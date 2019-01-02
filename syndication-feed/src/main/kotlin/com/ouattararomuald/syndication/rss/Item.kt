@@ -10,7 +10,7 @@ import java.util.ArrayList
  *
  * @property link URL of the item.
  * @property title contains a human readable title for the item.
- * @property description description of the item.
+ * @property description subtitle of the item.
  * @property published contains the time of the initial creation or first availability of the item.
  * @property guid a string that uniquely identifies the item.
  * @property comments URL of a page for comments relating to the item.
@@ -18,62 +18,36 @@ import java.util.ArrayList
  * @property categories categories that the item belongs to.
  */
 @Root(strict = false)
-class Item {
+data class Item(
   @field:Element(name = "link", required = false)
-  var link: String = ""
+  @param:Element(name = "link", required = false)
+  val link: String? = null,
 
   @field:Element(name = "title", required = false)
-  var title: String = ""
+  @param:Element(name = "title", required = false)
+  val title: String? = null,
 
   @field:Element(name = "description", required = false)
-  var description: String = ""
+  @param:Element(name = "description", required = false)
+  val description: String? = null,
 
   @field:Element(name = "pubDate", required = false)
-  var published: String = ""
+  @param:Element(name = "pubDate", required = false)
+  val published: String? = null,
 
   @field:Element(name = "guid", required = false)
-  var guid: String = ""
+  @param:Element(name = "guid", required = false)
+  val guid: String? = null,
 
   @field:Element(name = "comments", required = false)
-  var comments: String = ""
+  @param:Element(name = "comments", required = false)
+  val comments: String? = null,
 
   @field:Element(name = "source", required = false)
-  var source: Source? = null
+  @param:Element(name = "source", required = false)
+  val source: RssSource? = null,
 
   @field:ElementList(name = "category", inline = true, required = false)
-  var categories: List<RssCategory> = ArrayList()
-
-  override fun equals(other: Any?): Boolean {
-    if (this === other) return true
-    if (javaClass != other?.javaClass) return false
-
-    other as Item
-
-    if (link != other.link) return false
-    if (title != other.title) return false
-    if (description != other.description) return false
-    if (published != other.published) return false
-    if (guid != other.guid) return false
-    if (comments != other.comments) return false
-    if (source != other.source) return false
-    if (categories != other.categories) return false
-
-    return true
-  }
-
-  override fun hashCode(): Int {
-    var result = link.hashCode()
-    result = 31 * result + title.hashCode()
-    result = 31 * result + description.hashCode()
-    result = 31 * result + published.hashCode()
-    result = 31 * result + guid.hashCode()
-    result = 31 * result + comments.hashCode()
-    result = 31 * result + (source?.hashCode() ?: 0)
-    result = 31 * result + categories.hashCode()
-    return result
-  }
-
-  override fun toString(): String {
-    return "Item(link='$link', title='$title', description='$description', published='$published', guid='$guid', comments='$comments', source=$source, categories=$categories)"
-  }
-}
+  @param:ElementList(name = "category", inline = true, required = false)
+  val categories: List<RssCategory>? = ArrayList()
+)
