@@ -37,6 +37,8 @@ val atomFeed = runBlocking { reader.readAtom() }
 
 ## Download
 
+Download the [latest JAR](https://search.maven.org/search?q=g:com.ouattararomuald%20AND%20a:syndication-kotlin-coroutines-adapter) or grab via Gradle:
+
 ```gradle
 implementation 'com.ouattararomuald:syndication-kotlin-coroutines-adapter:0.1.0-rc.1'
 ```
