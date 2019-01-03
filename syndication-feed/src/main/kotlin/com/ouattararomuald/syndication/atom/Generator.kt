@@ -3,6 +3,7 @@ package com.ouattararomuald.syndication.atom
 import org.simpleframework.xml.Attribute
 import org.simpleframework.xml.Root
 import org.simpleframework.xml.Text
+import java.io.Serializable
 
 /**
  * Represent the agent used to generate a feed, for debugging and other purposes.
@@ -24,4 +25,4 @@ data class Generator(
   @field:Attribute(name = "version", required = false)
   @param:Attribute(name = "version", required = false)
   val version: String? = null
-)
+) : Serializable

@@ -2,6 +2,7 @@ package com.ouattararomuald.syndication.atom
 
 import org.simpleframework.xml.Attribute
 import org.simpleframework.xml.Root
+import java.io.Serializable
 
 /**
  * Represents a category associated with an [Entry] or feed ([AtomFeed]).
@@ -23,4 +24,4 @@ data class AtomCategory(
   @field:Attribute(name = "label", required = false)
   @param:Attribute(name = "label", required = false)
   val label: String? = null
-)
+) : Serializable

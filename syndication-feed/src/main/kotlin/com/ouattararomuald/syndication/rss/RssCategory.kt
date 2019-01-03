@@ -3,6 +3,7 @@ package com.ouattararomuald.syndication.rss
 import org.simpleframework.xml.Attribute
 import org.simpleframework.xml.Root
 import org.simpleframework.xml.Text
+import java.io.Serializable
 
 /**
  *  Represents a category associated with an [Item] or feed ([RssFeed]).
@@ -19,4 +20,4 @@ data class RssCategory(
   @field:Text(required = false)
   @param:Text(required = false)
   val value: String? = null
-)
+) : Serializable

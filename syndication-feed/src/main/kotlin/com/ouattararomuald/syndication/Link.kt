@@ -3,6 +3,7 @@ package com.ouattararomuald.syndication
 import org.simpleframework.xml.Attribute
 import org.simpleframework.xml.Root
 import org.simpleframework.xml.Text
+import java.io.Serializable
 
 @Root(name = "link", strict = false)
 data class Link(
@@ -33,4 +34,4 @@ data class Link(
   @param:Attribute(name = "length", required = false)
   @field:Attribute(name = "length", required = false)
   val length: Int? = null
-)
+) : Serializable

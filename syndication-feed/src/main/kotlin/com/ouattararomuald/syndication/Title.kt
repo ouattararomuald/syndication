@@ -3,6 +3,7 @@ package com.ouattararomuald.syndication
 import org.simpleframework.xml.Attribute
 import org.simpleframework.xml.Element
 import org.simpleframework.xml.Text
+import java.io.Serializable
 
 /**
  * Human-readable title for the feed.
@@ -42,4 +43,4 @@ data class Title(
   @field:Text(required = false)
   @param:Text(required = false)
   val value: String? = null
-)
+) : Serializable

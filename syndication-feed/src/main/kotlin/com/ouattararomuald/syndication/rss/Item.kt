@@ -3,6 +3,7 @@ package com.ouattararomuald.syndication.rss
 import org.simpleframework.xml.Element
 import org.simpleframework.xml.ElementList
 import org.simpleframework.xml.Root
+import java.io.Serializable
 import java.util.ArrayList
 
 /**
@@ -50,4 +51,4 @@ data class Item(
   @field:ElementList(name = "category", inline = true, required = false)
   @param:ElementList(name = "category", inline = true, required = false)
   val categories: List<RssCategory>? = ArrayList()
-)
+) : Serializable

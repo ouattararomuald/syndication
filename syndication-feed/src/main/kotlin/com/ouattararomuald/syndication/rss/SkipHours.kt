@@ -2,6 +2,7 @@ package com.ouattararomuald.syndication.rss
 
 import org.simpleframework.xml.ElementList
 import org.simpleframework.xml.Root
+import java.io.Serializable
 
 /**
  * A hint for aggregators telling them which hours they can skip.
@@ -15,4 +16,4 @@ data class SkipHours(
   @field:ElementList(name = "hour", inline = true)
   @param:ElementList(name = "hour", inline = true)
   val hours: List<Hour>
-)
+) : Serializable
