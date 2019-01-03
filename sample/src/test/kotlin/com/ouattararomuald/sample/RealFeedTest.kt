@@ -2,36 +2,71 @@ package com.ouattararomuald.sample
 
 import com.google.common.truth.Truth.assertThat
 import com.ouattararomuald.syndication.Syndication
+import okhttp3.mockwebserver.MockResponse
+import okhttp3.mockwebserver.MockWebServer
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 class RealFeedTest {
 
-  private val atomFeedUrls = listOf(
-      "https://www.senat.fr/rss/rapports.xml",
-      "https://www.reddit.com/r/androiddev/.rss"
-  )
+  companion object {
+    internal const val FAKE_URL = "/file.mp4"
+  }
 
-  private val rssFeedUrls = listOf(
-      "https://www.senat.fr/rss/rapports.rss",
-      "https://www.lemonde.fr/rss/une.xml",
-      "https://www.howtogeek.com/feed/",
-      "https://rss.simplecast.com/podcasts/1684/rss"
-  )
+  private lateinit var server: MockWebServer
+
+  @BeforeEach fun setUp() {
+    server = MockWebServer()
+  }
+
+  @AfterEach fun tearDown() {
+    server.close()
+  }
 
   @Test fun `atom feeds`() {
-    atomFeedUrls.forEach {
-      val syndication = Syndication(url = it)
+    server.enqueue(
+        MockResponse()
+            .setResponseCode(200)
+            .setBody(Data.ATOM_REDDIT)
+    )
+
+    server.enqueue(
+        MockResponse()
+            .setResponseCode(200)
+            .setBody(Data.ATOM_SENAT)
+    )
+
+    server.runTests {
+      val baseUrl = server.url(FAKE_URL)
+      val syndication = Syndication(url = baseUrl.toString())
       val reader = syndication.create(RssReader::class.java)
+
+      assertThat(reader.readAtom()).isNotNull()
       assertThat(reader.readAtom()).isNotNull()
     }
   }
 
   @Test fun `rss feeds`() {
-    rssFeedUrls.forEach {
-      val syndication = Syndication(url = it)
+    server.enqueue(
+        MockResponse()
+            .setResponseCode(200)
+            .setBody(Data.RSS_SENAT)
+    )
+
+    server.enqueue(
+        MockResponse()
+            .setResponseCode(200)
+            .setBody(Data.RSS_FRAGMENT_PODCAST)
+    )
+
+    server.runTests {
+      val baseUrl = server.url(FAKE_URL)
+      val syndication = Syndication(url = baseUrl.toString())
       val reader = syndication.create(RssReader::class.java)
-      val feed = reader.readRss()
-      assertThat(feed).isNotNull()
+
+      assertThat(reader.readRss()).isNotNull()
+      assertThat(reader.readRss()).isNotNull()
     }
   }
 }
