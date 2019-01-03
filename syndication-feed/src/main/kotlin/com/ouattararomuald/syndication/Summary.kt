@@ -1,7 +1,7 @@
 package com.ouattararomuald.syndication
 
 import org.simpleframework.xml.Attribute
-import org.simpleframework.xml.Element
+import org.simpleframework.xml.Root
 import org.simpleframework.xml.Text
 import java.io.Serializable
 
@@ -34,7 +34,7 @@ import java.io.Serializable
  *
  * @property type determines how this information is encoded (default="text")
  */
-@Element
+@Root(strict = false)
 data class Summary(
   @get:Attribute(name = "type", required = false)
   @param:Attribute(name = "type", required = false)

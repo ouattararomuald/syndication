@@ -1,6 +1,7 @@
 package com.ouattararomuald.syndication
 
 import org.simpleframework.xml.Attribute
+import org.simpleframework.xml.Root
 import org.simpleframework.xml.Text
 import java.io.Serializable
 
@@ -34,6 +35,7 @@ import java.io.Serializable
  * @property type determines how this information is encoded.
  * @property value content of tag.
  */
+@Root(strict = false)
 data class Copyright(
   @field:Attribute(name = "type", required = false)
   @param:Attribute(name = "type", required = false)
