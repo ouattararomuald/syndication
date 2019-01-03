@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/ouattararomuald/syndication.svg?token=b2y5CmmzwDUtNkj65irb&branch=master)](https://travis-ci.com/ouattararomuald/syndication)
 [![](https://img.shields.io/badge/code--style-square-green.svg)](https://github.com/square/java-code-styles)
 [![](https://img.shields.io/maven-central/v/com.ouattararomuald/syndication.svg)](https://search.maven.org/search?q=g:com.ouattararomuald%20a:syndication)
 [![](https://img.shields.io/nexus/s/https/oss.sonatype.org/com.ouattararomuald/syndication.svg)](https://oss.sonatype.org/content/repositories/snapshots/)
