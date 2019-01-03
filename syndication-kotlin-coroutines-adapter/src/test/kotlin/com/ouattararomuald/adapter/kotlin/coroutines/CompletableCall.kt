@@ -37,6 +37,8 @@ internal class CompletableCall : Call {
   private val done = CountDownLatch(1)
   private var exception: Throwable? = null
 
+  fun complete(data: String) = complete(createMockResponse(data))
+
   fun complete() = complete(createMockResponse(Data.RSS_2_0_SPEC))
 
   fun complete(response: Response) {

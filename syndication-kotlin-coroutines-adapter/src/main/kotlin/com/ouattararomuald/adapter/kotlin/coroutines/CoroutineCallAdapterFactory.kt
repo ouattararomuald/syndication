@@ -1,6 +1,7 @@
 package com.ouattararomuald.adapter.kotlin.coroutines
 
 import com.ouattararomuald.syndication.CallAdapter
+import com.ouattararomuald.syndication.DeserializationException
 import com.ouattararomuald.syndication.atom.AtomFeed
 import com.ouattararomuald.syndication.http.HttpException
 import com.ouattararomuald.syndication.rss.RssFeed
@@ -53,7 +54,11 @@ class CoroutineCallAdapterFactory : CallAdapter.Factory() {
         @Suppress("UNCHECKED_CAST")
         override fun onResponse(call: Call, response: Response) {
           if (response.isSuccessful) {
-            deferred.complete(parseXml(response.body()!!.string(), clazz))
+            try {
+              deferred.complete(parseXml(response.body()!!.string(), clazz))
+            } catch (e: DeserializationException) {
+              deferred.completeExceptionally(e)
+            }
           } else {
             deferred.completeExceptionally(HttpException("Unsuccessful request"))
           }
