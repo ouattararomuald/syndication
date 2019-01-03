@@ -11,7 +11,7 @@ import java.io.Serializable
  * representing a time in GMT, when aggregators, if they support the feature, may not read the
  * channel on hours listed in the `<skipHours>` element. The hour beginning at midnight is hour zero.
  */
-@Root
+@Root(strict = false)
 data class SkipHours(
   @field:ElementList(name = "hour", inline = true)
   @param:ElementList(name = "hour", inline = true)

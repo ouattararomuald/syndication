@@ -44,6 +44,10 @@ data class Item(
   @param:Element(name = "comments", required = false)
   val comments: String? = null,
 
+  @field:Element(name = "enclosure", required = false)
+  @param:Element(name = "enclosure", required = false)
+  val enclosure: Enclosure? = null,
+
   @field:Element(name = "source", required = false)
   @param:Element(name = "source", required = false)
   val source: RssSource? = null,
