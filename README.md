@@ -42,6 +42,23 @@ If you would like to do things asynchronously then take a look to existing adapt
 
 ## Download
 
+
+Download the [latest JAR](https://search.maven.org/search?q=g:com.ouattararomuald%20AND%20a:syndication) or grab via Gradle:
+
+```gradle
+implementation 'com.ouattararomuald:syndication:0.1.0-rc.1'
+```
+
+or Maven:
+
+```xml
+<dependency>
+  <groupId>com.ouattararomuald</groupId>
+  <artifactId>syndication</artifactId>
+  <version>0.1.0-rc.1</version>
+</dependency>
+```
+
 Snapshots of the development version are available in [Sonatype's snapshots repository](https://oss.sonatype.org/content/repositories/snapshots/).
 
 ## Contributing

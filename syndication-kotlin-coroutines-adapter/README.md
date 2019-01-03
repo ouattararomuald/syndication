@@ -37,4 +37,18 @@ val atomFeed = runBlocking { reader.readAtom() }
 
 ## Download
 
+```gradle
+implementation 'com.ouattararomuald:syndication-kotlin-coroutines-adapter:0.1.0-rc.1'
+```
+
+or Maven:
+
+```xml
+<dependency>
+  <groupId>com.ouattararomuald</groupId>
+  <artifactId>syndication-kotlin-coroutines-adapter</artifactId>
+  <version>0.1.0-rc.1</version>
+</dependency>
+```
+
 Snapshots of the development version are available in [Sonatype's snapshots repository](https://oss.sonatype.org/content/repositories/snapshots/).
