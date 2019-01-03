@@ -2,6 +2,7 @@ package com.ouattararomuald.syndication.rss
 
 import org.simpleframework.xml.ElementList
 import org.simpleframework.xml.Root
+import java.io.Serializable
 
 /**
  * A hint for aggregators telling them which days they can skip.
@@ -15,4 +16,4 @@ data class SkipDays(
   @field:ElementList(name = "day", inline = true)
   @param:ElementList(name = "day", inline = true)
   val days: List<Day>
-)
+) : Serializable

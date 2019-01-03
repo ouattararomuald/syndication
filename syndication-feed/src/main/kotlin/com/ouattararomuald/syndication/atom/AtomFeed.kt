@@ -11,6 +11,7 @@ import org.simpleframework.xml.Element
 import org.simpleframework.xml.ElementList
 import org.simpleframework.xml.Namespace
 import org.simpleframework.xml.Root
+import java.io.Serializable
 import java.util.ArrayList
 
 /**
@@ -97,4 +98,4 @@ data class AtomFeed(
   @field:ElementList(name = "entry", inline = true, required = false)
   @param:ElementList(name = "entry", inline = true, required = false)
   val items: List<Entry>? = ArrayList()
-)
+) : Serializable

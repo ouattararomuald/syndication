@@ -2,6 +2,7 @@ package com.ouattararomuald.syndication
 
 import org.simpleframework.xml.Attribute
 import org.simpleframework.xml.Text
+import java.io.Serializable
 
 /**
  * Conveys information about rights, e.g. copyrights.
@@ -41,4 +42,4 @@ data class Copyright(
   @field:Text(required = false)
   @param:Text(required = false)
   val value: String? = null
-)
+) : Serializable

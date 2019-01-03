@@ -2,6 +2,7 @@ package com.ouattararomuald.syndication
 
 import org.simpleframework.xml.Element
 import org.simpleframework.xml.Root
+import java.io.Serializable
 
 /**
  * Contributor of the feed.
@@ -23,4 +24,4 @@ data class Contributor(
   @field:Element(name = "email", required = false)
   @param:Element(name = "email", required = false)
   val email: String? = null
-)
+) : Serializable

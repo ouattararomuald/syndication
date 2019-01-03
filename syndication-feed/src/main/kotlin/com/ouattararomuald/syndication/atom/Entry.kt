@@ -8,6 +8,7 @@ import com.ouattararomuald.syndication.Summary
 import org.simpleframework.xml.Element
 import org.simpleframework.xml.ElementList
 import org.simpleframework.xml.Root
+import java.io.Serializable
 import java.util.ArrayList
 
 /**
@@ -70,4 +71,4 @@ data class Entry(
   @field:ElementList(inline = true, required = false)
   @param:ElementList(inline = true, required = false)
   val contributors: List<Contributor>? = ArrayList()
-)
+) : Serializable

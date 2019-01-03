@@ -3,6 +3,7 @@ package com.ouattararomuald.syndication.rss
 import org.simpleframework.xml.Attribute
 import org.simpleframework.xml.Element
 import org.simpleframework.xml.Text
+import java.io.Serializable
 
 @Element
 data class RssSource(
@@ -13,4 +14,4 @@ data class RssSource(
   @field:Text(required = false)
   @param:Text(required = false)
   val value: String? = null
-)
+) : Serializable

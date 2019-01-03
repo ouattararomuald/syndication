@@ -4,6 +4,7 @@ import com.ouattararomuald.syndication.Link
 import org.simpleframework.xml.Element
 import org.simpleframework.xml.ElementList
 import org.simpleframework.xml.Root
+import java.io.Serializable
 import java.util.ArrayList
 
 @Root(strict = false)
@@ -67,4 +68,4 @@ class Channel(
   @field:ElementList(name = "item", inline = true, required = false)
   @param:ElementList(name = "item", inline = true, required = false)
   val items: List<Item>? = ArrayList()
-)
+) : Serializable

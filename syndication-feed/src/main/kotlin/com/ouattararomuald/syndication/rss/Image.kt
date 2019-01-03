@@ -1,6 +1,7 @@
 package com.ouattararomuald.syndication.rss
 
 import org.simpleframework.xml.Element
+import java.io.Serializable
 
 data class Image(
   @field:Element(name = "url", required = false)
@@ -26,4 +27,4 @@ data class Image(
   @field:Element(name = "height", required = false)
   @param:Element(name = "height", required = false)
   val height: Int? = null
-)
+) : Serializable

@@ -3,6 +3,7 @@ package com.ouattararomuald.syndication
 import org.simpleframework.xml.Attribute
 import org.simpleframework.xml.Element
 import org.simpleframework.xml.Text
+import java.io.Serializable
 
 /**
  * Human-readable text, usually in small quantities, that summarize the content of the feed or entry.
@@ -42,4 +43,4 @@ data class Summary(
   @field:Text(required = false)
   @param:Text(required = false)
   val value: String? = null
-)
+) : Serializable
