@@ -21,6 +21,7 @@ package com.ouattararomuald.adapter.kotlin.coroutines
 import com.google.common.reflect.TypeToken
 import com.google.common.truth.Truth.assertThat
 import com.ouattararomuald.syndication.CallAdapter
+import com.ouattararomuald.syndication.DeserializationException
 import com.ouattararomuald.syndication.rss.RssFeed
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -77,6 +78,22 @@ class CancelTest {
     assertThat(call.isCanceled).isFalse()
     deferredRssFeed.cancel()
     assertThat(call.isCanceled).isTrue()
+  }
+
+  @Test fun `cancel on deserialization error`() {
+    val type = typeOf<Deferred<RssFeed>>()
+    val callAdapter =
+        coroutineCallAdapterFactory.get(type) as CallAdapter<RssFeed, Deferred<RssFeed>>
+
+    val call = CompletableCall()
+    val deferredRssFeed = adapt(call, callAdapter)
+
+    call.complete(Data.UNDESERIALIZABLE_FEED)
+
+    assertThat(call.isCanceled).isTrue()
+    assertThat(deferredRssFeed.getCompletionExceptionOrNull()).isInstanceOf(
+        DeserializationException::class.java)
+    assertThat(deferredRssFeed.isCancelled).isTrue()
   }
 
   private inline fun <reified T, reified U> adapt(
