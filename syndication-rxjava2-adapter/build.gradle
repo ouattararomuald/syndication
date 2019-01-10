@@ -1,3 +1,4 @@
+apply plugin: 'java-library'
 apply plugin: 'org.jetbrains.kotlin.jvm'
 
 test {
@@ -6,21 +7,22 @@ test {
 
 sourceSets {
   main.kotlin.srcDirs += 'src/main/kotlin'
-  main.java.srcDirs += 'src/main/java'
+  main.java.srcDirs += 'src/main/kotlin'
   test.kotlin.srcDirs += 'src/test/kotlin'
-  test.java.srcDirs += 'src/test/java'
+  test.java.srcDirs += 'src/test/kotlin'
 }
 
 dependencies {
   implementation deps.kotlin.stdlib
-  implementation project(':syndication-feed')
-  implementation project(':syndication-rxjava2-adapter')
-  implementation project(':syndication-kotlin-coroutines-adapter')
+  api project(':syndication-feed')
+
+  api deps.rxjava2
 
   testImplementation deps.junit.api
   testRuntimeOnly deps.junit.engine
   testImplementation deps.mockWebServer
   testImplementation deps.truth
+  testImplementation deps.mockito
 }
 
 compileTestKotlin {
@@ -30,3 +32,5 @@ compileTestKotlin {
 compileTestKotlin {
   kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8
 }
+
+apply from: rootProject.file('gradle/gradle-mvn-push.gradle')

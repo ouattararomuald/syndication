@@ -34,7 +34,8 @@ By default only `RssFeed` and `AtomFeed` are accepted as return type.
 
 If you would like to do things asynchronously then take a look to existing adapters in this repo.
 
-**kotlin-coroutines-adapter** for example let you return `Deferred<RssFeed>` or `Deferred<AtomFeed>`.
+- **kotlin-coroutines-adapter** for example let you return `Deferred<RssFeed>` or `Deferred<AtomFeed>`.
+- **rxjava2-adapter** let you return [RxJava 2.x](https://github.com/ReactiveX/RxJava) types (`Flowable`, `Maybe`, `Single`).
 
 ## Syndication specifications
 
