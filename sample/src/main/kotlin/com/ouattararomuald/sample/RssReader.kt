@@ -19,5 +19,5 @@ interface RssReader {
 
   fun readObservable(): Observable<RssFeed>
 
-  fun readSingle(): Single<RssFeed>
+  fun readOnce(): Single<RssFeed>
 }

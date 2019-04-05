@@ -49,14 +49,11 @@ class RxJava2CallAdapterFactory(
     val isMaybe = rawType == Maybe::class.java
     val isObservable = rawType == Observable::class.java
 
-    val name = if (isFlowable) {
-      "Flowable"
-    } else if (isSingle) {
-      "Single"
-    } else if (isMaybe) {
-      "Maybe"
-    } else {
-      "Observable"
+    val name = when {
+      isFlowable -> "Flowable"
+      isSingle -> "Single"
+      isMaybe -> "Maybe"
+      else -> "Observable"
     }
 
     if (!isObservable && !isFlowable && !isSingle && !isMaybe) {
@@ -78,5 +75,41 @@ class RxJava2CallAdapterFactory(
           isMaybe, AtomFeed::class.java)
       else -> throw IllegalStateException("Unsupported type")
     }
+  }
+
+  override fun <CustomReturnClass> get(
+    returnType: Type,
+    isCustomReturnType: Boolean,
+    customReturnClass: Class<CustomReturnClass>
+  ): CallAdapter<*, *> {
+    val rawType = getRawType(returnType)
+
+    val isFlowable = rawType == Flowable::class.java
+    val isSingle = rawType == Single::class.java
+    val isMaybe = rawType == Maybe::class.java
+    val isObservable = rawType == Observable::class.java
+
+    val name = when {
+      isFlowable -> "Flowable"
+      isSingle -> "Single"
+      isMaybe -> "Maybe"
+      else -> "Observable"
+    }
+
+    if (!isObservable && !isFlowable && !isSingle && !isMaybe) {
+      throw IllegalStateException("returnType must be $name")
+    }
+
+    if (returnType !is ParameterizedType) {
+      throw IllegalStateException(
+          "$name return type must be parameterized as $name<Foo> or $name<? extends Foo>")
+    }
+
+    if (isCustomReturnType) {
+      return RxJava2CallAdapter<CustomReturnClass>(scheduler, isAsync, isFlowable, isSingle,
+          isMaybe, customReturnClass)
+    }
+
+    throw IllegalStateException("Unable to get adapter")
   }
 }

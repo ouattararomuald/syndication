@@ -22,4 +22,15 @@ internal class SyndicationTest {
     assertThat(throwable.message).isEqualTo(
         "returnType != RssFeed::class.java && returnType != AtomFeed::class.java")
   }
+
+  @Test fun `custom return type with two annotations fails`() {
+    val syndication = Syndication("")
+    val service = syndication.create(FeedReaderService::class.java)
+
+    val throwable = Assertions.assertThrows(IllegalStateException::class.java) {
+      service.twoAnnotationsReadRss()
+    }
+    assertThat(throwable.message).isEqualTo(
+        "method twoAnnotationsReadRss cannot be annotated with both @Atom and @Rss")
+  }
 }

@@ -37,6 +37,16 @@ abstract class CallAdapter<SyndicationType, Response> {
     abstract fun get(returnType: Type): CallAdapter<*, *>
 
     /**
+     * Returns a call adapter for interfaces methods that return type [returnType],
+     * or null if can not be handled by this factory.
+     */
+    abstract fun <CustomReturnClass> get(
+      returnType: Type,
+      isCustomReturnType: Boolean,
+      customReturnClass: Class<CustomReturnClass>
+    ): CallAdapter<*, *>
+
+    /**
      * Extract the upper bound of the generic parameter at `index` from `type`. For
      * example, index 1 of `Map<String, ? extends Runnable>` returns `Runnable`.
      */
