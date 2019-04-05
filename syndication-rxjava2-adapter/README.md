@@ -55,7 +55,7 @@ By default all reactive types execute their requests synchronously. There are mu
 Download the [latest JAR](https://search.maven.org/search?q=g:com.ouattararomuald%20AND%20a:syndication-rxjava2-adapter) or grab via Gradle:
 
 ```gradle
-implementation 'com.ouattararomuald:syndication-rxjava2-adapter:0.1.0-rc.1'
+implementation 'com.ouattararomuald:syndication-rxjava2-adapter:1.1.0'
 ```
 
 or Maven:
@@ -64,7 +64,7 @@ or Maven:
 <dependency>
   <groupId>com.ouattararomuald</groupId>
   <artifactId>syndication-rxjava2-adapter</artifactId>
-  <version>0.1.0-rc.1</version>
+  <version>1.1.0</version>
 </dependency>
 ```
 

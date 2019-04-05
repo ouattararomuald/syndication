@@ -54,7 +54,7 @@ return your **own custom type** then see **wiki**.
 Download the [latest JAR](https://search.maven.org/search?q=g:com.ouattararomuald%20AND%20a:syndication) or grab via Gradle:
 
 ```gradle
-implementation 'com.ouattararomuald:syndication:0.1.0-rc.1'
+implementation 'com.ouattararomuald:syndication:1.1.0'
 ```
 
 or Maven:
@@ -63,7 +63,7 @@ or Maven:
 <dependency>
   <groupId>com.ouattararomuald</groupId>
   <artifactId>syndication</artifactId>
-  <version>0.1.0-rc.1</version>
+  <version>1.1.0</version>
 </dependency>
 ```
 
