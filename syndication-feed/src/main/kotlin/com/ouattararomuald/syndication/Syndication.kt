@@ -62,13 +62,43 @@ class Syndication(
               method.invoke(this, args)
             } else {
               val returnType = method.genericReturnType
+              //returnType::class.java.componentType
+
+              val isCustomReturnType = isCustomReturnType(method)
+
+              verifyCustomMethodAnnotations(method)
 
               val feedType = getFirstActualTypeArgument(returnType) ?: returnType
-              validateReturnType(feedType)
+              if (!isCustomReturnType) {
+                validateReturnType(feedType)
+              } else {
+                val annotations = getMethodAnnotations(method)
+                val annotation = annotations.first()
+
+                val kclass = when (annotation) {
+                  is Atom -> annotation.returnClass
+                  is Rss -> annotation.returnClass
+                  else -> null
+                }
+
+                kclass?.let {
+                  return read(
+                      kclass.java,
+                      method.genericReturnType,
+                      feedType,
+                      isCustomReturnType,
+                      httpClient,
+                      callFactory,
+                      url
+                  )
+                }
+              }
 
               return read(
+                  RssFeed::class.java, // This params is not used for non-custom parsers
                   method.genericReturnType,
                   feedType,
+                  isCustomReturnType,
                   httpClient,
                   callFactory,
                   url
@@ -76,6 +106,34 @@ class Syndication(
             }
           }
         }) as T
+  }
+
+  private fun verifyCustomMethodAnnotations(method: Method) {
+    val annotations = getMethodAnnotations(method)
+
+    if (annotations.size > 1) {
+      throw IllegalStateException(
+          "method ${method.name} cannot be annotated with both @Atom and @Rss")
+    }
+  }
+
+  private fun isCustomReturnType(method: Method): Boolean {
+    return method.isAnnotationPresent(Atom::class.java) || method.isAnnotationPresent(
+        Rss::class.java)
+  }
+
+  private fun getMethodAnnotations(method: Method): Array<Annotation> {
+    val arrayList = ArrayList<Annotation>()
+
+    if (method.isAnnotationPresent(Atom::class.java)) {
+      arrayList.add(method.getDeclaredAnnotation(Atom::class.java))
+    }
+
+    if (method.isAnnotationPresent(Rss::class.java)) {
+      arrayList.add(method.getDeclaredAnnotation(Rss::class.java))
+    }
+
+    return arrayList.toTypedArray()
   }
 
   private fun getFirstActualTypeArgument(genericReturnType: Type): Type? {
@@ -96,29 +154,43 @@ class Syndication(
   }
 
   @Suppress("UNCHECKED_CAST")
-  private fun <T> read(
+  private fun <T, R : Any> read(
+    customReturnClass: Class<R>,
     returnType: Type,
     feedType: Type,
+    isCustomParser: Boolean,
     httpClient: OkHttpClient,
     callFactory: CallAdapter.Factory,
     url: String
   ): T {
-    return if (feedType == AtomFeed::class.java) {
-      val readerAdapter: CallAdapter<AtomFeed, T> =
-          callFactory.get(returnType) as CallAdapter<AtomFeed, T>
+    return when (feedType) {
+      AtomFeed::class.java -> {
+        val callAdapter: CallAdapter<AtomFeed, T> =
+            callFactory.get(returnType) as CallAdapter<AtomFeed, T>
 
-      val request = Request.Builder().url(url).build()
-      val call = httpClient.newCall(request)
+        val request = Request.Builder().url(url).build()
+        val call = httpClient.newCall(request)
 
-      readerAdapter.adapt(call, AtomFeed::class.java)
-    } else { // RSS_2_0
-      val callAdapter: CallAdapter<RssFeed, T> =
-          callFactory.get(returnType) as CallAdapter<RssFeed, T>
+        callAdapter.adapt(call, AtomFeed::class.java)
+      }
+      RssFeed::class.java -> {
+        val callAdapter: CallAdapter<RssFeed, T> =
+            callFactory.get(returnType) as CallAdapter<RssFeed, T>
 
-      val request = Request.Builder().url(url).build()
-      val call = httpClient.newCall(request)
+        val request = Request.Builder().url(url).build()
+        val call = httpClient.newCall(request)
 
-      callAdapter.adapt(call, RssFeed::class.java)
+        callAdapter.adapt(call, RssFeed::class.java)
+      }
+      else -> {
+        val callAdapter: CallAdapter<R, T> =
+            callFactory.get(returnType, isCustomParser, customReturnClass) as CallAdapter<R, T>
+
+        val request = Request.Builder().url(url).build()
+        val call = httpClient.newCall(request)
+
+        callAdapter.adapt(call, customReturnClass)
+      }
     }
   }
 }

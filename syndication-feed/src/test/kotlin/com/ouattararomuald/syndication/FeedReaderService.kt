@@ -8,6 +8,13 @@ internal interface FeedReaderService {
 
   fun readRss(): RssFeed
 
+  @Atom(returnClass = CustomRssFeed::class)
+  @Rss(returnClass = CustomRssFeed::class)
+  fun twoAnnotationsReadRss(): CustomRssFeed
+
+  @Rss(returnClass = CustomRssFeed::class)
+  fun customReadRss(): CustomRssFeed
+
   fun readBadType(): Int
 
   fun readBadGenericType(): List<AtomFeed>

@@ -8,6 +8,18 @@ import java.lang.reflect.Type
 
 internal class DefaultCallAdapterFactory : CallAdapter.Factory() {
 
+  override fun <CustomReturnClass> get(
+    returnType: Type,
+    isCustomReturnType: Boolean,
+    customReturnClass: Class<CustomReturnClass>
+  ): CallAdapter<*, *> {
+    if (isCustomReturnType) {
+      return ResponseAdapter<Any>()
+    }
+
+    throw IllegalStateException("Unable to get adapter")
+  }
+
   override fun get(returnType: Type): CallAdapter<*, *> {
     return when (returnType) {
       RssFeed::class.java -> ResponseAdapter<RssFeed>()

@@ -17,6 +17,26 @@ import java.lang.reflect.Type
 /** A [CallAdapter.Factory] for use with kotlin coroutines. */
 class CoroutineCallAdapterFactory : CallAdapter.Factory() {
 
+  override fun <CustomReturnClass> get(
+    returnType: Type,
+    isCustomReturnType: Boolean,
+    customReturnClass: Class<CustomReturnClass>
+  ): CallAdapter<*, *> {
+    if (Deferred::class.java != getRawType(returnType)) {
+      throw IllegalStateException("returnType must be Deferred")
+    }
+    if (returnType !is ParameterizedType) {
+      throw IllegalStateException(
+          "Deferred return type must be parameterized as Deferred<Foo> or Deferred<out Foo>")
+    }
+
+    if (isCustomReturnType) {
+      return ResponseAdapter<Any>()
+    }
+
+    throw IllegalStateException("Unable to get adapter")
+  }
+
   override fun get(returnType: Type): CallAdapter<*, *> {
     if (Deferred::class.java != getRawType(returnType)) {
       throw IllegalStateException("returnType must be Deferred")

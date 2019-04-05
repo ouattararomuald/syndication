@@ -70,6 +70,22 @@ internal class RssFeedParsingTest {
     }
   }
 
+  @Test fun `deserialize with custom return type`() {
+    server.enqueue(
+        MockResponse()
+            .setResponseCode(200)
+            .setBody(Data.RSS_2_0_SPEC)
+    )
+
+    server.runTests {
+      val baseUrl = server.url(FAKE_URL)
+      val reader = Syndication (baseUrl.toString()).create(FeedReaderService::class.java)
+      val syndicationFeed = reader.customReadRss()
+
+      assertThat(syndicationFeed).isNotNull()
+    }
+  }
+
   @Test
   fun `verify title`() {
     assertThat(channel.title).isEqualTo("Liftoff News")

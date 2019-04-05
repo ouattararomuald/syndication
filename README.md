@@ -37,6 +37,12 @@ If you would like to do things asynchronously then take a look to existing adapt
 - **kotlin-coroutines-adapter** for example let you return `Deferred<RssFeed>` or `Deferred<AtomFeed>`.
 - **rxjava2-adapter** let you return [RxJava 2.x](https://github.com/ReactiveX/RxJava) types (`Flowable`, `Maybe`, `Single`).
 
+
+## Custom syndication feed
+
+By default only `RssFeed` and `AtomFeed` are accepted as return type but If you would like to
+return your **own custom type** then see **wiki**.
+
 ## Syndication specifications
 
 - [Atom 1.0](https://tools.ietf.org/html/rfc4287)
