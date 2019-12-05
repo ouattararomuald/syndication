@@ -92,7 +92,7 @@ final class RecordingSingleObserver<T> implements SingleObserver<T> {
     Throwable throwable = takeError();
     assertThat(throwable).isInstanceOf(errorClass);
     if (message != null) {
-      assertThat(throwable).hasMessage(message);
+      assertThat(throwable).hasMessageThat().isEqualTo(message);
     }
     assertNoEvents();
   }
