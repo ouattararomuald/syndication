@@ -80,7 +80,7 @@ public final class MaybeThrowingTest {
       }
     });
 
-    assertThat(throwableRef.get()).isSameAs(e);
+    assertThat(throwableRef.get()).isSameInstanceAs(e);
   }
 
   @Test public void bodyThrowingInOnErrorDeliveredToPlugin() {

@@ -102,7 +102,7 @@ final class RecordingObserver<T> implements Observer<T> {
     Throwable throwable = takeError();
     assertThat(throwable).isInstanceOf(errorClass);
     if (message != null) {
-      assertThat(throwable).hasMessage(message);
+      assertThat(throwable).hasMessageThat().isEqualTo(message);
     }
     assertNoEvents();
   }

@@ -81,7 +81,7 @@ public final class SingleThrowingTest {
       }
     });
 
-    assertThat(throwableRef.get()).isSameAs(e);
+    assertThat(throwableRef.get()).isSameInstanceAs(e);
   }
 
   @Test public void bodyThrowingInOnErrorDeliveredToPlugin() {

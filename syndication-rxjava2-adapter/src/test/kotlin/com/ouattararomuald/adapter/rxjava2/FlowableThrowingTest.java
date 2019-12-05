@@ -95,7 +95,7 @@ public final class FlowableThrowingTest {
     });
 
     subscriber.assertAnyValue();
-    assertThat(throwableRef.get()).isSameAs(e);
+    assertThat(throwableRef.get()).isSameInstanceAs(e);
   }
 
   @Test public void bodyThrowingInOnErrorDeliveredToPlugin() {
@@ -149,4 +149,3 @@ public final class FlowableThrowingTest {
     }
   }
 }
-
