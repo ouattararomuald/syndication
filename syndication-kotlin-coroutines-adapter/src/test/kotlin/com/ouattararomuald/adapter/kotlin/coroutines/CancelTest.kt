@@ -47,7 +47,7 @@ class CancelTest {
 
     call.complete()
 
-    assertThat(call.isCanceled).isFalse()
+    assertThat(call.isCanceled()).isFalse()
     assertThat(deferredRssFeed.isCompleted).isTrue()
   }
 
@@ -62,7 +62,7 @@ class CancelTest {
 
     call.completeWithException(IOException())
 
-    assertThat(call.isCanceled).isTrue()
+    assertThat(call.isCanceled()).isTrue()
     assertThat(deferredRssFeed.getCompletionExceptionOrNull()).isNotNull()
     assertThat(deferredRssFeed.isCancelled).isTrue()
   }
@@ -75,9 +75,9 @@ class CancelTest {
     val call = CompletableCall()
     val deferredRssFeed = adapt(call, callAdapter)
 
-    assertThat(call.isCanceled).isFalse()
+    assertThat(call.isCanceled()).isFalse()
     deferredRssFeed.cancel()
-    assertThat(call.isCanceled).isTrue()
+    assertThat(call.isCanceled()).isTrue()
   }
 
   @Test fun `cancel on deserialization error`() {
@@ -90,7 +90,7 @@ class CancelTest {
 
     call.complete(Data.UNDESERIALIZABLE_FEED)
 
-    assertThat(call.isCanceled).isTrue()
+    assertThat(call.isCanceled()).isTrue()
     assertThat(deferredRssFeed.getCompletionExceptionOrNull()).isInstanceOf(
         DeserializationException::class.java)
     assertThat(deferredRssFeed.isCancelled).isTrue()

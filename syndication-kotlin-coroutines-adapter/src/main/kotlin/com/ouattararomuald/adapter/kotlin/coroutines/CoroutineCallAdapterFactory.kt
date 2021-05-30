@@ -75,7 +75,7 @@ class CoroutineCallAdapterFactory : CallAdapter.Factory() {
         override fun onResponse(call: Call, response: Response) {
           if (response.isSuccessful) {
             try {
-              deferred.complete(parseXml(response.body()!!.string(), clazz))
+              deferred.complete(parseXml(response.body!!.string(), clazz))
             } catch (e: DeserializationException) {
               deferred.completeExceptionally(e)
             }

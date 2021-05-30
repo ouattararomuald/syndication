@@ -13,7 +13,6 @@ sourceSets {
 }
 
 dependencies {
-  implementation deps.kotlin.stdlib
   api project(':syndication-feed')
 
   api deps.rxjava2

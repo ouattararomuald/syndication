@@ -34,7 +34,7 @@ internal class DefaultCallAdapterFactory : CallAdapter.Factory() {
     override fun adapt(call: Call, clazz: Class<SyndicationType>): SyndicationType {
       val response = call.execute()
       if (response.isSuccessful) {
-        return parseXml(response.body()!!.string(), clazz)
+        return parseXml(response.body!!.string(), clazz)
       } else {
         throw HttpException("Unsuccessful request")
       }

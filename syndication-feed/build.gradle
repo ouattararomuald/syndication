@@ -13,8 +13,6 @@ sourceSets {
 }
 
 dependencies {
-  implementation deps.kotlin.stdlib
-
   api deps.coroutine
   api deps.okhttp
   api deps.simpleXml

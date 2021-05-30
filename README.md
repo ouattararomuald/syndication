@@ -36,6 +36,7 @@ If you would like to do things asynchronously then take a look to existing adapt
 
 - **kotlin-coroutines-adapter** for example let you return `Deferred<RssFeed>` or `Deferred<AtomFeed>`.
 - **rxjava2-adapter** let you return [RxJava 2.x](https://github.com/ReactiveX/RxJava) types (`Flowable`, `Maybe`, `Single`).
+- **rxjava3-adapter** let you return [RxJava 3.x](https://github.com/ReactiveX/RxJava) types (`Flowable`, `Maybe`, `Single`).
 
 
 ## Custom syndication feed
@@ -54,7 +55,7 @@ return your **own custom type** then see **wiki**.
 Download the [latest JAR](https://search.maven.org/search?q=g:com.ouattararomuald%20AND%20a:syndication) or grab via Gradle:
 
 ```gradle
-implementation 'com.ouattararomuald:syndication:1.1.0'
+implementation 'com.ouattararomuald:syndication:2.1.1'
 ```
 
 or Maven:
@@ -63,7 +64,7 @@ or Maven:
 <dependency>
   <groupId>com.ouattararomuald</groupId>
   <artifactId>syndication</artifactId>
-  <version>1.1.0</version>
+  <version>2.1.1</version>
 </dependency>
 ```
 

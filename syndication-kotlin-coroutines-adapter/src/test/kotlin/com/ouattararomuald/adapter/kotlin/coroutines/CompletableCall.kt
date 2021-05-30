@@ -57,7 +57,7 @@ internal class CompletableCall : Call {
     done.countDown()
   }
 
-  override fun request(): Request = response!!.request()
+  override fun request(): Request = response!!.request
 
   override fun isExecuted(): Boolean = synchronized(lock) { executed }
 

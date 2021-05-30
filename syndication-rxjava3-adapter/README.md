@@ -1,9 +1,9 @@
 [![](https://img.shields.io/maven-central/v/com.ouattararomuald/syndication-rxjava2-adapter.svg)](https://search.maven.org/search?q=g:com.ouattararomuald%20a:syndication-rxjava2-adapter)
 [![](https://img.shields.io/nexus/s/https/oss.sonatype.org/com.ouattararomuald/syndication-rxjava2-adapter.svg)](https://oss.sonatype.org/content/repositories/snapshots/)
 
-# RxJava2 Adapter
+# RxJava3 Adapter
 
-An adapter for adapting [RxJava 2.x](https://github.com/ReactiveX/RxJava) types.
+An adapter for adapting [RxJava 3.x](https://github.com/ReactiveX/RxJava) types.
 
 Available types:
 
@@ -13,12 +13,12 @@ Available types:
 
 ## Usage
 
-Pass `RxJava2CallAdapterFactory` as parameter to `Syndication`.
+Pass `RxJava3CallAdapterFactory` as parameter to `Syndication`.
 
 ```kotlin
 val syndicationReader = Syndication(
   url = "https://www.lequipe.fr/rss/actu_rss.xml",
-  callFactory = RxJava2CallAdapterFactory.create()
+  callFactory = RxJava3CallAdapterFactory.create()
 )
 ```
 
@@ -55,7 +55,7 @@ By default all reactive types execute their requests synchronously. There are mu
 Download the [latest JAR](https://search.maven.org/search?q=g:com.ouattararomuald%20AND%20a:syndication-rxjava2-adapter) or grab via Gradle:
 
 ```gradle
-implementation 'com.ouattararomuald:syndication-rxjava2-adapter:2.1.1'
+implementation 'com.ouattararomuald:syndication-rxjava3-adapter:2.1.1'
 ```
 
 or Maven:
@@ -63,7 +63,7 @@ or Maven:
 ```xml
 <dependency>
   <groupId>com.ouattararomuald</groupId>
-  <artifactId>syndication-rxjava2-adapter</artifactId>
+  <artifactId>syndication-rxjava3-adapter</artifactId>
   <version>2.1.1</version>
 </dependency>
 ```

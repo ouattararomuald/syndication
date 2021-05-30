@@ -2,5 +2,6 @@ rootProject.name = 'syndication'
 include 'syndication-feed'
 include 'syndication-kotlin-coroutines-adapter'
 include 'syndication-rxjava2-adapter'
+include 'syndication-rxjava3-adapter'
 include 'sample'
 
