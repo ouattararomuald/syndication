@@ -1,5 +1,5 @@
-[![](https://img.shields.io/maven-central/v/com.ouattararomuald/syndication-rxjava2-adapter.svg)](https://search.maven.org/search?q=g:com.ouattararomuald%20a:syndication-rxjava2-adapter)
-[![](https://img.shields.io/nexus/s/https/oss.sonatype.org/com.ouattararomuald/syndication-rxjava2-adapter.svg)](https://oss.sonatype.org/content/repositories/snapshots/)
+[![](https://img.shields.io/maven-central/v/com.ouattararomuald/syndication-rxjava3-adapter.svg)](https://search.maven.org/search?q=g:com.ouattararomuald%20a:syndication-rxjava3-adapter)
+[![](https://img.shields.io/nexus/s/https/oss.sonatype.org/com.ouattararomuald/syndication-rxjava3-adapter.svg)](https://oss.sonatype.org/content/repositories/snapshots/)
 
 # RxJava3 Adapter
 
